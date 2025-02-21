@@ -1,0 +1,1 @@
+## folder to store database and media
