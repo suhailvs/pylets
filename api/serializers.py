@@ -1,11 +1,21 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 from coinapp.models import Listing
 
+User = get_user_model()
 
-class ListingModelSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source="user.username", read_only=True)
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
+class ListingDetailSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  # Nest the entire Category object
     class Meta:
         model = Listing
-        fields = ("id", "category", "heading", "username")  # name', 'id')
+        fields = '__all__'
 
+class ListingModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Listing
+        fields = ("id", "category", "heading")
