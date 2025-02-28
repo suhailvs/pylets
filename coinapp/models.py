@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django_resized import ResizedImageField
 from . import misc
 
 
@@ -37,7 +38,15 @@ class Listing(models.Model):
     rate = models.CharField(max_length=100, blank=True)
     listing_type = models.CharField(max_length=1, choices=LISTING_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
-    img = models.ImageField(upload_to='offering/%Y/%m/%d/', null=True, blank=True) 
+    img = ResizedImageField(
+        size=[500, 300],
+        quality=25,
+        upload_to="offering/%Y/%m/%d/",
+        null=True,
+        blank=True,
+    )
+
+    # models.ImageField(upload_to='offering/%Y/%m/%d/', null=True, blank=True)
     def __str__(self):
         return f"{self.heading}({self.detail[:30]}...)"
 
