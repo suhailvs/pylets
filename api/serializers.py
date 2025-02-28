@@ -18,7 +18,7 @@ class ListingDetailSerializer(serializers.ModelSerializer):
 class ListingModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
-        fields = ("id", "category", "heading")
+        fields = ("id", "category", "heading","img")
     
 class TransactionSerializer(serializers.ModelSerializer):
     is_received = serializers.BooleanField(default=False)
