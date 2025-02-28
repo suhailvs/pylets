@@ -52,6 +52,8 @@ class SignUpNewView(CreateView):
                 exchange_obj = exchange_form.save(commit=False)
                 exchange_obj.admin = user_obj
                 exchange_obj.save()
+                user_obj.exchange=exchange_obj
+                user_obj.save()
                 login(self.request, user_obj)
                 return redirect(reverse_lazy("coinapp:home"))
         else:

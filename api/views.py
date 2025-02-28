@@ -2,6 +2,7 @@ from rest_framework import viewsets  # import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
 from django.db.models import Q, F, BooleanField, Case, When
 from django.contrib.auth import get_user_model
 from django.db import transaction
@@ -25,7 +26,7 @@ class ListingModelViewSet(viewsets.ReadOnlyModelViewSet):
         qs = Listing.objects.filter(user__exchange=user.exchange)
         # c = Listing.listing_type.field.choices[0][0]
         if self.action == "list":
-            qs = qs.filter(listing_type=self.request.GET.get("type",'O'))
+            qs = qs.filter(listing_type=self.request.GET.get("type", "O"))
         return qs
 
     def get_serializer_class(self):
@@ -69,6 +70,10 @@ class Transactions(APIView):
         # default is seller transaction(receive money)
         seller = request.user
         buyer = User.objects.get(id=request.data["user"])
+        if seller == buyer:
+            msg = "You cannot send money to you own account"
+            return Response(msg,status=status.HTTP_400_BAD_REQUEST)
+
         if transaction_type == "buyer":
             # send money
             seller, buyer = buyer, seller

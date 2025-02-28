@@ -4,6 +4,19 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class CreateExchangeTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse("signup_new")
+
+    def test_createexchange(self):
+        response = self.client.post(
+            self.url,
+            {"code":"KKED", "title":"sdfa", "address":"aa", "country":"IN","username": '7238233233', "password1": "sumee1910",
+             "password2":"sumee1910","email":"sdfa@gag.com", "phone":"123123","tandc":True},
+            follow=True,
+        )
+        # print(response.content)
 
 class TransactionTest(TestCase):
     fixtures = [
