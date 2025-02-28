@@ -3,8 +3,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Q, F, BooleanField, Case, When
+from django.contrib.auth import get_user_model
+from django.db import transaction
 from coinapp.models import Listing, Transaction
-from .serializers import ListingModelSerializer, ListingDetailSerializer, TransactionSerializer
+from .serializers import ListingModelSerializer, ListingDetailSerializer, TransactionSerializer, UserSerializer
+
+User = get_user_model()
 
 class ListingModelViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -20,13 +24,30 @@ class GetUserBalance(APIView):
     def get(self, request, format=None):
         return Response(request.user.amount)
 
-class TransactionModelViewSet(viewsets.ReadOnlyModelViewSet):
+# class TransactionModelViewSet(viewsets.ReadOnlyModelViewSet):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = TransactionSerializer
+#     def get_queryset(self):
+#         user = self.request.user
+#         return (
+#             Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
+#             .select_related("seller", "buyer")
+#             .annotate(
+#                 is_received=Case(
+#                     When(Q(seller=user), then=True),
+#                     default=False,
+#                     output_field=BooleanField(),
+#                 )
+#             )
+#             .order_by("-created_at")
+#         )
+
+
+class Transactions(APIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = TransactionSerializer
-    def get_queryset(self):
+    def get(self, request, format=None):
         user = self.request.user
-        return (
-            Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
+        qs = (Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
             .select_related("seller", "buyer")
             .annotate(
                 is_received=Case(
@@ -35,5 +56,38 @@ class TransactionModelViewSet(viewsets.ReadOnlyModelViewSet):
                     output_field=BooleanField(),
                 )
             )
-            .order_by("-created_at")
-        )
+            .order_by("-created_at"))
+        serializer = TransactionSerializer(qs, many=True)  # Serialize orders
+        return Response(serializer.data)
+    
+    def post(self, request):
+        transaction_type = 'buyer' # request.data["transaction_type"] # buyer or seller
+        amt = request.data["amount"]
+        desc = request.data["message"]
+        # default is seller transaction(receive money)
+        seller = request.user
+        buyer = User.objects.get(id=request.data["user"])
+        if transaction_type == "buyer":
+            # send money
+            seller, buyer = buyer, seller
+        with transaction.atomic():
+            seller.amount = F("amount") + amt
+            buyer.amount = F("amount") - amt
+            seller.save(update_fields=["amount"])
+            buyer.save(update_fields=["amount"])
+            txn = Transaction.objects.create(
+                seller=seller,
+                buyer=buyer,
+                description=desc,
+                amount=amt,
+            )
+            serializer = TransactionSerializer(txn)
+            return Response(serializer.data)
+        
+
+class GetUsers(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, format=None):
+        qs = User.objects.exclude(id=request.user.id).order_by("first_name")
+        serializer = UserSerializer(qs, many=True)  # Serialize orders
+        return Response(serializer.data)

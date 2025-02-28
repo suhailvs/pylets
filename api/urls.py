@@ -6,9 +6,12 @@ app_name = 'api'
 
 router = DefaultRouter()
 router.register('listings', views.ListingModelViewSet, basename='listing-api')
-router.register('transactions', views.TransactionModelViewSet, basename='transaction-api')
+# router.register('transactions', views.TransactionModelViewSet, basename='transaction-api')
 
 urlpatterns = [    
     path('', include(router.urls)),
     path('user/balance/',views.GetUserBalance.as_view()),
+    path('users/',views.GetUsers.as_view()),
+    path('transactions/',views.Transactions.as_view()),
+    
 ]
