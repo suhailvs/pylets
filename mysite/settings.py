@@ -90,6 +90,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+STATIC_ROOT = BASE_DIR / "mysite" / "static" # "/var/www/example.com/media/static/"
 MEDIA_ROOT = BASE_DIR / "mysite" / "media" # os.path.join(BASE_DIR, 'media')
 
 DATABASES = {
@@ -163,7 +164,7 @@ LOGOUT_REDIRECT_URL = "coinapp:home"
 
 MAXIMUM_BALANCE = 10000
 MINIMUM_BALANCE = -10000
-GITHUB_TOKEN = config("GITHUB_TOKEN")
+# GITHUB_TOKEN = config("GITHUB_TOKEN")
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
