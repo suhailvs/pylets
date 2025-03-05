@@ -13,5 +13,5 @@ urlpatterns = [
     ),
     path('listing/<int:pk>/delete/', views.ListingDeleteView.as_view(), name='listing_delete'),
     path('listing/<int:pk>/preview/', views.ListingPreviewView.as_view(), name='listing_preview'),
-    path("ajax/<str:purpose>/", views.ajax_views, name="ajax_views"),
+    # path("ajax/<str:purpose>/", views.ajax_views, name="ajax_views"), # see https://github.com/gamifications/shihas_bill
 ]
