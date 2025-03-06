@@ -12,6 +12,19 @@ python manage.py runserver
 visit <http://localhost:8000/>
 ```
 
+## Host it on pythonanywhere
+
+on pythonanywhere webapps tab add 2 urls in `Static files` section:
+
+URL | Directory
+--- | ---
+/media/ | /home/suhailvs/stackcoin/mysite/media 	 
+/static/ | /home/suhailvs/stackcoin/mysite/static 	 
+
+```
+python manage.py collectstatic
+```
+
 ## Host it on vercel
 
 * https://vercel.com/suhailvs-projects -> Add New... -> Project -> import git repo -> other
