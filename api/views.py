@@ -8,7 +8,8 @@ from django.contrib.auth import get_user_model
 from django.db import transaction
 from coinapp.models import Listing, Transaction
 from .serializers import (
-    ListingModelSerializer,
+    ListingListSerializer,
+    ListingCreateSerializer,
     ListingDetailSerializer,
     TransactionSerializer,
     UserSerializer,
@@ -17,7 +18,7 @@ from .serializers import (
 User = get_user_model()
 
 
-class ListingModelViewSet(viewsets.ReadOnlyModelViewSet):
+class ListingModelViewSet(viewsets.ModelViewSet): #ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
     # queryset = Listing.objects.all()
@@ -30,11 +31,15 @@ class ListingModelViewSet(viewsets.ReadOnlyModelViewSet):
         return qs
 
     def get_serializer_class(self):
-        """Return different serializers for list and detail views"""
+        """Return different serializers for list, create and detail views"""
         if self.action == "list":
-            return ListingModelSerializer
+            return ListingListSerializer
+        if self.action == "create":
+            return ListingCreateSerializer
         return ListingDetailSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 class GetUserBalance(APIView):
     permission_classes = [IsAuthenticated]
