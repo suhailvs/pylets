@@ -1,0 +1,112 @@
+[
+    {
+      "model": "coinapp.generalsettings",
+      "pk": 1,
+      "fields": {
+        "key": "about",
+        "value": "71"
+      }
+    },
+    {
+      "model": "coinapp.exchange",
+      "pk": 1,
+      "fields": {
+        "code": "KKDE",
+        "name": "Kolakkode exchange",
+        "address": "Kolakkode, Palakkad, Kerala. PIN-678686",
+        "country": "IN",
+        "created_by":1
+      }
+    },
+    {
+      "model": "coinapp.exchange",
+      "pk": 2,
+      "fields": {
+        "code": "PIXL",
+        "name": "Pixdynamics exchange",
+        "address": "Carnival Infopark, Kakkanad, Kochi",
+        "country": "IN",
+        "created_by":1
+      }
+    },
+    {
+      "model": "coinapp.user",
+      "pk": 1,
+      "fields": {
+        "password": "pbkdf2_sha256$870000$tlzrUM09WmpZraNyZqZEHe$y8Co+0oOeX9EOrsinShPGf9F0B4nv6hhazxqm/EliuA=",
+        "last_login": "2024-10-30T11:04:57.884Z",
+        "is_superuser": true,
+        "username": "7356775981",
+        "date_of_birth":"1988-12-04",
+              "government_id": "7356775981",
+        "first_name": "suhail vs",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2024-10-30T04:31:50.285Z",
+        "balance": -30,
+        "groups": [],
+        "user_permissions": [],
+        "exchange": 1
+      }
+    },
+    {
+      "model": "coinapp.user",
+      "pk": 2,
+      "fields": {
+        "password": "pbkdf2_sha256$870000$7uk62XShpKDDjI51hku0ww$W+FCgplzDmImw71OQ5QKE4meoeFY+U6m9QPf7U9KLPA=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "8921513696",
+        "date_of_birth":"1988-12-04",
+        "government_id": "8921513696",
+        "first_name": "Nusra",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-27T05:05:52.942Z",
+        "balance": 0,
+        "groups": [],
+        "user_permissions": [],
+        "exchange": 1
+      }
+    },
+    {
+      "model": "coinapp.user",
+      "pk": 3,
+      "fields": {
+        "password": "pbkdf2_sha256$870000$IxqwLJE4C5uhlLF9LBpiOj$jS5VbK7A61RD9t7SpPo2ucLwNLVR03iIATavqJ/l/Sc=",
+        "last_login": "2024-10-26T14:39:23.475Z",
+        "is_superuser": false,
+        "username": "8547622462",
+        "date_of_birth":"1988-12-04",
+        "government_id": "8547622462",
+        "first_name": "Sulaiman",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-26T14:39:22.900Z",
+        "balance": 0,
+        "groups": [],
+        "user_permissions": [],
+        "exchange": 1
+      }
+    },
+  
+    {
+      "model": "coinapp.listing",
+      "pk": 1,
+      "fields": {
+        "user": 1,
+        "category": "Food_Drink",
+        "title": "rice",
+        "description": "Matta rice",
+        "rate": "50$ per kg",
+        "listing_type": "O",
+        "created_at": "2024-11-01T07:12:50.355Z"
+      }
+    }
+]

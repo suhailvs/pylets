@@ -12,8 +12,8 @@ class CreateExchangeTest(TestCase):
     def test_createexchange(self):
         response = self.client.post(
             self.url,
-            {"code":"KKED", "title":"sdfa", "address":"aa", "country":"IN","username": '7238233233', "password1": "sumee1910",
-             "password2":"sumee1910","email":"sdfa@gag.com", "phone":"123123","tandc":True},
+            {"code":"KKED", "title":"sdfa", "address":"aa", "country":"IN","username": '7238233233', "password1": "dummypassword",
+             "password2":"dummypassword","email":"sdfa@gag.com", "govtid":"123123","dob":"1988-12-04","tandc":True},
             follow=True,
         )
         # print(response.content)
@@ -140,8 +140,8 @@ class ListingTest(TestCase):
                 "action": "add",
                 "listing_type": "O",
                 "category": "Food_Drink",
-                "heading": "test heading",
-                "detail": "test detail",
+                "title": "test heading",
+                "description": "test detail",
                 "rate": "test rate",
             },
             follow=True,
@@ -154,7 +154,7 @@ class ListingTest(TestCase):
         self.assertEqual(
             "O",
             response.context["userlistings"]
-            .filter(heading="test heading")
+            .filter(title="test heading")
             .first()
             .listing_type,
         )
@@ -178,8 +178,8 @@ class ListingTest(TestCase):
                 "action": "add",
                 "listing_type": "W",
                 "category": "Food_Drink",
-                "heading": "test heading want",
-                "detail": "test detail",
+                "title": "test heading want",
+                "description": "test detail",
             },
             follow=True,
         )
@@ -190,7 +190,7 @@ class ListingTest(TestCase):
         self.assertEqual(
             "W",
             response.context["userlistings"]
-            .filter(heading="test heading want")
+            .filter(title="test heading want")
             .first()
             .listing_type,
         )
@@ -209,7 +209,7 @@ class ListingTest(TestCase):
         )
 
         response = self.client.get(self.url)
-        self.assertIn("rice", [l.heading for l in response.context["userlistings"]])
+        self.assertIn("rice", [l.title for l in response.context["userlistings"]])
 
         # suhail can delete rice listing
         self.client.post(
@@ -222,7 +222,7 @@ class ListingTest(TestCase):
         )
 
         response = self.client.get(self.url)
-        self.assertNotIn("rice", [l.heading for l in response.context["userlistings"]])
+        self.assertNotIn("rice", [l.title for l in response.context["userlistings"]])
 
     def test_listing_preview(self):
         response = self.client.get(reverse("coinapp:listing_preview", kwargs={"pk": 1}))

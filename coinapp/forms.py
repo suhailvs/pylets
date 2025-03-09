@@ -18,7 +18,8 @@ class SignUpForm(UserCreationForm):
             "username",
             "first_name",
             "email",
-            "phone",
+            "government_id",
+            "date_of_birth",
             "password1",
             "password2",
             "tandc",
@@ -41,7 +42,7 @@ class ExchangeForm(forms.ModelForm):
 
     class Meta:
         model = Exchange
-        fields = ("code", "title", "address", "country")
+        fields = ("code", "name", "address", "country")
 
 
 class TransactionForm(forms.Form):
@@ -61,7 +62,7 @@ class TransactionForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["to_user"].label_from_instance = (
-            lambda u: f"{u.username}|{u.first_name}|amt:{u.amount}rs"
+            lambda u: f"{u.username}|{u.first_name}|amt:{u.balance}rs"
         )
 
 
@@ -72,7 +73,7 @@ class DetailWidget(forms.Textarea):
 class ListingForm(forms.ModelForm):
     class Meta:
         model = Listing
-        fields = ("category", "heading", "detail", "rate", "img")
+        fields = ("category", "title", "description", "rate", "image")
         widgets = {
             "detail": DetailWidget(), # attrs={'rows': 40}),
         }

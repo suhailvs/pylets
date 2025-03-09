@@ -5,24 +5,26 @@ from . import misc
 
 
 class User(AbstractUser):
-    exchange = models.ForeignKey("Exchange", on_delete=models.CASCADE, null=True)
-    phone = models.CharField(max_length=50, blank=False)
-    amount = models.IntegerField(default=0)
+    exchange = models.ForeignKey(
+        "Exchange", on_delete=models.SET_NULL, null=True, related_name="users"
+    )
+    government_id = models.CharField(max_length=50, unique=True)
+    date_of_birth = models.DateField()
+    balance = models.IntegerField(default=0)
 
 
 class Exchange(models.Model):
     COUNTRY_CHOICES = misc.COUNTRIES
     code = models.CharField(max_length=5, unique=True)
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    pending_users = models.ManyToManyField("User", related_name="pending_exchange")
     country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
-    admin = models.ForeignKey(
-        "User", on_delete=models.CASCADE, related_name="exchange_admin"
+    created_by = models.ForeignKey(
+        "User", on_delete=models.SET_NULL, null=True, related_name="created_exchanges"
     )
 
     def __str__(self):
-        return f"{self.code}({self.title})"
+        return f"{self.code}({self.name})"
 
 
 class Listing(models.Model):
@@ -31,14 +33,14 @@ class Listing(models.Model):
         ("O", "Offering"),
         ("W", "Wants"),
     ]
-    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="listings")
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    heading = models.CharField(max_length=255)
-    detail = models.TextField()
+    title = models.CharField(max_length=255)
+    description = models.TextField()
     rate = models.CharField(max_length=100, blank=True)
     listing_type = models.CharField(max_length=1, choices=LISTING_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
-    img = ResizedImageField(
+    image = ResizedImageField(
         size=[500, 300],
         quality=25,
         upload_to="offering/%Y/%m/%d/",
@@ -48,7 +50,7 @@ class Listing(models.Model):
 
     # models.ImageField(upload_to='offering/%Y/%m/%d/', null=True, blank=True)
     def __str__(self):
-        return f"{self.heading}({self.detail[:30]}...)"
+        return f"{self.title}({self.description[:30]}...)"
 
 
 class Transaction(models.Model):
@@ -58,9 +60,11 @@ class Transaction(models.Model):
     buyer = models.ForeignKey(
         "User", on_delete=models.CASCADE, related_name="txn_buyer"
     )
-    listing = models.ForeignKey("Listing", on_delete=models.SET_NULL, null=True)
+    listing = models.ForeignKey(
+        Listing, on_delete=models.SET_NULL, null=True, related_name="transactions"
+    )
     description = models.CharField(max_length=255)
-    amount = models.IntegerField(default=0)
+    amount = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
