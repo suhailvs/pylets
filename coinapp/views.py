@@ -45,9 +45,9 @@ class SignUpNewView(CreateView):
         exchange_form = ctx["exchange_form"]
         if exchange_form.is_valid() and form.is_valid():
             with transaction.atomic():
-                user_obj = form.save()
-                exchange_obj = exchange_form.save(commit=False)
-                exchange_obj.admin = user_obj
+                user_obj = form.save()                
+                exchange_obj = exchange_form.save(commit=False)                
+                exchange_obj.created_by=user_obj
                 exchange_obj.save()
                 user_obj.exchange=exchange_obj
                 user_obj.save()
@@ -94,10 +94,10 @@ def transaction_view(request):
                 # send money
                 seller, buyer = buyer, seller
             with transaction.atomic():
-                seller.amount = F("amount") + amt
-                buyer.amount = F("amount") - amt
-                seller.save(update_fields=["amount"])
-                buyer.save(update_fields=["amount"])
+                seller.balance = F("balance") + amt
+                buyer.balance = F("balance") - amt
+                seller.save(update_fields=["balance"])
+                buyer.save(update_fields=["balance"])
                 txn = Transaction.objects.create(
                     seller=seller,
                     buyer=buyer,

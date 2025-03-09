@@ -12,11 +12,10 @@
     "pk": 1,
     "fields": {
       "code": "KKDE",
-      "title": "Kolakkode exchange",
+      "name": "Kolakkode exchange",
       "address": "Kolakkode, Palakkad, Kerala. PIN-678686",
       "country": "IN",
-      "admin": 1,
-      "pending_users": []
+      "created_by":1
     }
   },
   {
@@ -24,11 +23,10 @@
     "pk": 2,
     "fields": {
       "code": "PIXL",
-      "title": "Pixdynamics exchange",
+      "name": "Pixdynamics exchange",
       "address": "Carnival Infopark, Kakkanad, Kochi",
       "country": "IN",
-      "admin": 4,
-      "pending_users": []
+      "created_by":1
     }
   },
   {
@@ -39,14 +37,15 @@
       "last_login": "2024-10-30T11:04:57.884Z",
       "is_superuser": true,
       "username": "7356775981",
-      "phone": "7356775981",
+      "date_of_birth":"1988-12-04",
+			"government_id": "7356775981",
       "first_name": "suhail vs",
       "last_name": "",
       "email": "",
       "is_staff": true,
       "is_active": true,
       "date_joined": "2024-10-30T04:31:50.285Z",
-      "amount": -30,
+      "balance": -30,
       "groups": [],
       "user_permissions": [],
       "exchange": 1
@@ -60,14 +59,15 @@
       "last_login": null,
       "is_superuser": false,
       "username": "8921513696",
-      "phone": "8921513696",
+      "date_of_birth":"1988-12-04",
+      "government_id": "8921513696",
       "first_name": "Nusra",
       "last_name": "",
       "email": "",
       "is_staff": false,
       "is_active": true,
       "date_joined": "2024-10-27T05:05:52.942Z",
-      "amount": 0,
+      "balance": 0,
       "groups": [],
       "user_permissions": [],
       "exchange": 1
@@ -81,98 +81,15 @@
       "last_login": "2024-10-26T14:39:23.475Z",
       "is_superuser": false,
       "username": "8547622462",
-      "phone": "8547622462",
+      "date_of_birth":"1988-12-04",
+      "government_id": "8547622462",
       "first_name": "Sulaiman",
       "last_name": "",
       "email": "",
       "is_staff": false,
       "is_active": true,
       "date_joined": "2024-10-26T14:39:22.900Z",
-      "amount": 0,
-      "groups": [],
-      "user_permissions": [],
-      "exchange": 1
-    }
-  },
-  {
-    "model": "coinapp.user",
-    "pk": 4,
-    "fields": {
-      "password": "pbkdf2_sha256$870000$eQLviIgRhoZDDoHZLTAFBS$aseC+7p5O5jntVioAhpkZHoGVYdR4xp490e/0WaMwdI=",
-      "last_login": "2024-10-30T10:47:40.966Z",
-      "is_superuser": false,
-      "username": "8848338141",
-      "phone": "8848338141",
-      "first_name": "sabareesh",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-10-30T04:36:30.239Z",
-      "amount": 70,
-      "groups": [],
-      "user_permissions": [],
-      "exchange": 2
-    }
-  },
-  {
-    "model": "coinapp.user",
-    "pk": 5,
-    "fields": {
-      "password": "pbkdf2_sha256$870000$lFrr7P5JxRPUYn2px95ZvL$upvo/5+5+T90AJofgnLtlqwXOOOUUSFwp3oZTNPv69Q=",
-      "last_login": "2024-11-01T07:12:04.780Z",
-      "is_superuser": false,
-      "username": "9495924658",
-      "phone": "9495924658",
-      "first_name": "anshad",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-11-01T07:11:54.389Z",
-      "amount": -40,
-      "groups": [],
-      "user_permissions": [],
-      "exchange": 2
-    }
-  },
-  {
-    "model": "coinapp.user",
-    "pk": 6,
-    "fields": {
-      "password": "pbkdf2_sha256$870000$bKPhFbp3qOQ7ONZq1NPs3J$i8AXf91E5BRrZZ844aMszS34JjZf/YWx0USI8oi+Tn8=",
-      "last_login": "2024-11-01T08:47:22.925Z",
-      "is_superuser": false,
-      "username": "8281752374",
-      "phone": "8281752374",
-      "first_name": "Vishnu",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-11-01T08:46:57.959Z",
-      "amount": 0,
-      "groups": [],
-      "user_permissions": [],
-      "exchange": 2
-    }
-  },
-  {
-    "model": "coinapp.user",
-    "pk": 7,
-    "fields": {
-      "password": "pbkdf2_sha256$870000$0QpdqRh8EBda6a3Xdts7Aw$f0xhl+KJs91HTcDSxR5bvhryWCUu/7cqado+YjVZNEE=",
-      "last_login": "2024-11-02T08:17:12.626Z",
-      "is_superuser": false,
-      "username": "9495890370",
-      "phone": "9495890370",
-      "first_name": "Shakeer",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2024-11-02T08:16:59.131Z",
-      "amount": 0,
+      "balance": 0,
       "groups": [],
       "user_permissions": [],
       "exchange": 1
@@ -185,8 +102,8 @@
     "fields": {
       "user": 1,
       "category": "Food_Drink",
-      "heading": "rice",
-      "detail": "Matta rice",
+      "title": "rice",
+      "description": "Matta rice",
       "rate": "50$ per kg",
       "listing_type": "O",
       "created_at": "2024-11-01T07:12:50.355Z"
@@ -196,7 +113,7 @@
     "model": "coinapp.transaction",
     "pk": 1,
     "fields": {
-      "seller": 4,
+      "seller": 2,
       "buyer": 1,
       "description": "Badminton Court - Amigos Oct 29",
       "amount": 70,
@@ -207,7 +124,7 @@
     "model": "coinapp.transaction",
     "pk": 2,
     "fields": {
-      "seller": 4,
+      "seller": 2,
       "buyer": 1,
       "description": "Chumma tha",
       "amount": 100,
@@ -219,7 +136,7 @@
     "pk": 3,
     "fields": {
       "seller": 1,
-      "buyer": 4,
+      "buyer": 2,
       "description": "Return 100rs due to dummy previous payment ",
       "amount": 100,
       "created_at": "2024-10-31T14:54:43.195Z"
@@ -230,7 +147,7 @@
     "pk": 4,
     "fields": {
       "seller": 1,
-      "buyer": 5,
+      "buyer": 2,
       "description": "Sandwich ",
       "amount": 40,
       "created_at": "2024-11-01T07:12:50.355Z"

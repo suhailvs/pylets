@@ -1,24 +1,84 @@
-from rest_framework import viewsets  # import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.db.models import Q, F, BooleanField, Case, When
 from django.contrib.auth import get_user_model
 from django.db import transaction
+from django.db.models import BooleanField, Case, F, Q, When
+from rest_framework import viewsets  # import ModelViewSet
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
+from rest_framework.serializers import ValidationError
 from coinapp.models import Listing, Transaction
+
 from .serializers import (
-    ListingListSerializer,
     ListingCreateSerializer,
     ListingDetailSerializer,
+    ListingListSerializer,
     TransactionSerializer,
     UserSerializer,
+    UserCreateSerializer,
 )
 
 User = get_user_model()
 
 
-class ListingModelViewSet(viewsets.ModelViewSet): #ReadOnlyModelViewSet):
+class CustomAuthToken(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            data=request.data, context={"request": request}
+        )
+        # serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            # check for inactive users
+            inactive_user = User.objects.filter(username=request.data['username']).first()
+            if inactive_user:
+                if inactive_user.check_password(request.data['password']):
+                    # user is inactive
+                    return Response({'is_active':False, 'message':'Verification is pending.'})
+            raise ValidationError(serializer.errors)
+        
+        user = serializer.validated_data["user"]
+        token, created = Token.objects.get_or_create(user=user)
+        return Response(
+            {
+                "key": token.key,
+                "user_id": user.pk,
+                "username": user.username,
+                "exchange": user.exchange_id,
+            }
+        )
+
+class CreateUserView(CreateAPIView):
+
+    model = User
+    # permission_classes = [permissions.AllowAny]
+    serializer_class = UserCreateSerializer
+
+
+class GetUserBalance(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        return Response(request.user.balance)
+
+
+class GetUsers(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        qs = (
+            User.objects.exclude(id=request.user.id)
+            .filter(exchange=request.user.exchange)
+            .order_by("first_name")
+        )
+        serializer = UserSerializer(qs, many=True)
+        return Response(serializer.data)
+
+
+class ListingModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     # queryset = Listing.objects.all()
@@ -28,7 +88,8 @@ class ListingModelViewSet(viewsets.ModelViewSet): #ReadOnlyModelViewSet):
         # c = Listing.listing_type.field.choices[0][0]
         if self.action == "list":
             qs = qs.filter(listing_type=self.request.GET.get("type", "O"))
-        return qs
+            print("requests:", self.request.GET)
+        return qs.order_by("-created_at")
 
     def get_serializer_class(self):
         """Return different serializers for list, create and detail views"""
@@ -41,11 +102,6 @@ class ListingModelViewSet(viewsets.ModelViewSet): #ReadOnlyModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-class GetUserBalance(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, format=None):
-        return Response(request.user.amount)
 
 
 class Transactions(APIView):
@@ -77,16 +133,16 @@ class Transactions(APIView):
         buyer = User.objects.get(id=request.data["user"])
         if seller == buyer:
             msg = "You cannot send money to you own account"
-            return Response(msg,status=status.HTTP_400_BAD_REQUEST)
+            return Response(msg, status=status.HTTP_400_BAD_REQUEST)
 
         if transaction_type == "buyer":
             # send money
             seller, buyer = buyer, seller
         with transaction.atomic():
-            seller.amount = F("amount") + amt
-            buyer.amount = F("amount") - amt
-            seller.save(update_fields=["amount"])
-            buyer.save(update_fields=["amount"])
+            seller.balance = F("balance") + amt
+            buyer.balance = F("balance") - amt
+            seller.save(update_fields=["balance"])
+            buyer.save(update_fields=["balance"])
             txn = Transaction.objects.create(
                 seller=seller,
                 buyer=buyer,
@@ -96,15 +152,3 @@ class Transactions(APIView):
             serializer = TransactionSerializer(txn)
             return Response(serializer.data)
 
-
-class GetUsers(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, format=None):
-        qs = (
-            User.objects.exclude(id=request.user.id)
-            .filter(exchange=request.user.exchange)
-            .order_by("first_name")
-        )
-        serializer = UserSerializer(qs, many=True)  # Serialize orders
-        return Response(serializer.data)

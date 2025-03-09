@@ -14,15 +14,15 @@
 <hr>
 <table class="table table-bordered">
   <tr><td><strong>{% if object.listing_type == 'O' %}Offering{%else%}Want{%endif%} ID:</strong></td><td>#{{object.id}}</td></tr>
-  <tr><td><strong>Title:</strong></td><td>{{ object.heading }}</td></tr>
+  <tr><td><strong>Title:</strong></td><td>{{ object.title }}</td></tr>
   <tr><td><strong>Category:</strong></td><td>{{object.category}}</td></tr>
   <tr><td colspan="2">
     <strong>Description:</strong><br>
     {# object.detail|linebreaks #}
-    <span id="offering_detail">{{ object.detail }}</span>
+    <span id="offering_detail">{{ object.description }}</span>
   </td></tr>
-  {% if object.img %}
-  <tr><td colspan="2"><strong>Picture:</strong><br><img src="{{ object.img.url }}" class="img-thumbnail" alt=""></td></tr>
+  {% if object.image %}
+  <tr><td colspan="2"><strong>Picture:</strong><br><img src="{{ object.image.url }}" class="img-thumbnail" alt=""></td></tr>
   {% endif %}
   <tr><td><strong>Requesting:</strong></td><td>{{object.rate}}</td></tr>
   <tr><td><strong>Added On:</strong></td><td>{{ object.created_at|date }}</td></tr>
