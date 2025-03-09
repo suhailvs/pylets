@@ -13,6 +13,6 @@ urlpatterns = [
     path('user/balance/',views.GetUserBalance.as_view()),
     path('users/',views.GetUsers.as_view()),
     path('transactions/',views.Transactions.as_view()),
-    path('api-token-auth/', views.CustomAuthToken.as_view()),
+    path('login/', views.CustomAuthToken.as_view()),
     path('registration/', views.CreateUserView.as_view()),
 ]

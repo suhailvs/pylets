@@ -13,7 +13,6 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path("admin/", admin.site.urls),
-    path("dj-rest-auth/", include("dj_rest_auth.urls")),
     # path("about/", about_view, name='about'), #TemplateView.as_view(template_name="about.html"), name='about'),
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/signup_join/", SignUpJoinView.as_view(), name="signup_join"),

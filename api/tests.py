@@ -15,7 +15,7 @@ class TransactionTest(APITestCase):
     def test_login_and_make_transaction(self):
         # login as sulaiman and make a seller transaction of 10$ -> nusra
         response = self.client.post(
-            f"{BASE_URL}api-token-auth/",
+            f"{BASE_URL}login/",
             {"username": "8547622462", "password": "sumee1910"},
             format="json",
         )
@@ -42,7 +42,7 @@ class TransactionTest(APITestCase):
 
         # login as nusra. check she has -10$ balance
         response = self.client.post(
-            f"{BASE_URL}api-token-auth/",
+            f"{BASE_URL}login/",
             {"username": "8921513696", "password": "sumee1910"},
             format="json",
         )
@@ -74,7 +74,7 @@ class RegistrationTest(APITestCase):
 
         # wrong password in login
         response = self.client.post(
-            f"{BASE_URL}api-token-auth/",
+            f"{BASE_URL}login/",
             {"username": "1234567890", "password": "mypass1235"},
             format="json",
         )
@@ -84,7 +84,7 @@ class RegistrationTest(APITestCase):
 
         # inactive username in login
         response = self.client.post(
-            f"{BASE_URL}api-token-auth/",
+            f"{BASE_URL}login/",
             {"username": "1234567890", "password": "mypass1234"},
             format="json",
         )
