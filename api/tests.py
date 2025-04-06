@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django.conf import settings
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -9,7 +11,7 @@ BASE_URL = "/api/v1/"
 
 class TransactionTest(APITestCase):
     fixtures = [
-        "testdata.json",
+        "sample.json",
     ]
 
     def test_login_and_make_transaction(self):
@@ -59,6 +61,41 @@ class TransactionTest(APITestCase):
         # test buyer transaction
         # check sulaiman has -13$ balance
         pass
+    
+
+class TransactionMaxMinTest(APITestCase):
+    fixtures = [
+        "sample.json",
+    ]
+    def setUp(self):
+        self.user_nusra = User.objects.get(username="8921513696")
+        # add lots of balance to user_sulaiman        
+        user_sulaiman = User.objects.get(username="8921513696")
+        user_sulaiman.balance= settings.MAXIMUM_BALANCE+1
+        user_sulaiman.save()
+        
+    def test_max_balance(self):
+        # send an amount of maximum_amt+1 to nusra
+        response = self.client.post(
+            f"{BASE_URL}login/",
+            {"username": "8547622462", "password": "sumee1910"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()["username"], "8547622462")
+        token = response.json()["key"]
+        response = self.client.post(
+            f"{BASE_URL}transactions/",
+            {
+                "user": self.user_nusra.id,
+                "amount": settings.MAXIMUM_BALANCE+1,
+                "message": "caring",
+            },
+            headers={"Authorization": f"Token {token}"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
 
 class RegistrationTest(APITestCase):

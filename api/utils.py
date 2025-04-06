@@ -1,5 +1,6 @@
 from django.db.models import BooleanField, Case, F, Q, When
 from django.db import transaction
+from django.conf import settings
 from coinapp.models import Transaction
 
 
@@ -24,6 +25,13 @@ def save_transaction(transaction_type,amt,desc,seller, buyer):
     if transaction_type == "buyer":
         # send money
         seller, buyer = buyer, seller
+
+    # _check_max_min_balance
+    if seller.balance+amt > settings.MAXIMUM_BALANCE:
+        return {'success':False,'msg':"Seller reached Maximum balance",'txn_obj':None}
+    if buyer.balance-amt < settings.MINIMUM_BALANCE:
+        return {'success':False,'msg':"Buyer reached Minimum balance",'txn_obj':None}
+    
     with transaction.atomic():
         seller.balance = F("balance") + amt
         buyer.balance = F("balance") - amt
