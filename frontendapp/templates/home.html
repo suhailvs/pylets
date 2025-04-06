@@ -57,7 +57,7 @@
 <p>Total money in existence:${{total}}</p>
 <p class="lead">My latest 5 Transactions</p>
 <a href="#">sell all transactions</a>
-{% include 'coinapp/parts/_transactions.html' %}
+{% include 'frontendapp/parts/_transactions.html' %}
 {% endblock %}
 
 {% block js %}
@@ -68,7 +68,7 @@
         $('#id_buyer').val('').trigger('change');
         $('#id_buyer').on('select2:select', function (e) {
             $.ajax({ 
-                url: "{% url 'coinapp:ajax_views' 'get_balance' %}", 
+                url: "{% url 'frontendapp:ajax_views' 'get_balance' %}", 
                 data: {'username': e.params.data.id},
                 success: function (data) {
                     $("#user_balance").html(data);

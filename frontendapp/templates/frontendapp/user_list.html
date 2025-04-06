@@ -5,7 +5,7 @@
 {% block content %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'coinapp:exchange_list' %}">Exchanges</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'frontendapp:exchange_list' %}">Exchanges</a></li>
     <li class="breadcrumb-item active" aria-current="page">{{request.resolver_match.kwargs.exchange}}</li>
   </ol>
 </nav>
@@ -27,12 +27,12 @@
 {% for user in users %}
   <div class="col-6 col-md-3 mb-4">
     <div class="media">
-      <a href="{% url 'coinapp:user_detail' exchange=user.exchange.code user=user.id %}">
+      <a href="{% url 'frontendapp:user_detail' exchange=user.exchange.code user=user.id %}">
         <img class="mr-3" src="{{ user.username|gravatar_url:50 }}" alt="{{user.first_name}}">
       </a>
       <div class="media-body" style="font-size: 12px">
         <!-- <a href="#">{{user.get_full_name}}</a><br> -->
-        <a href="{% url 'coinapp:user_detail' exchange=user.exchange.code user=user.id %}">{{user.username}}</a><br>
+        <a href="{% url 'frontendapp:user_detail' exchange=user.exchange.code user=user.id %}">{{user.username}}</a><br>
         Balance: <strong>{{user.amount}}</strong><br>
         {{user.first_name}}
       </div>

@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
-from coinapp.views import SignUpJoinView, SignUpNewView
+from frontendapp.views import SignUpJoinView, SignUpNewView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 urlpatterns = [
-    path("", include("coinapp.urls")),
+    path("", include("frontendapp.urls")),
     path("api/v1/", include("api.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(

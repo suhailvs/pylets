@@ -1,7 +1,7 @@
 {% load static %}
 
-{% url 'coinapp:home' as url_home %}
-{% url 'coinapp:exchange_list' as url_users %}
+{% url 'frontendapp:home' as url_home %}
+{% url 'frontendapp:exchange_list' as url_users %}
 {% url 'login' as url_login %}
 {% url 'signup_join' as url_signup_join %}
 {% url 'signup_new' as url_signup_new %}
@@ -24,7 +24,7 @@
             <div class="text-end">
               {% if user.is_authenticated %}
                 <div style="float: right;">
-                  <a href="{% url 'coinapp:user_detail' exchange=user.exchange.code user=user.id %}">               
+                  <a href="{% url 'frontendapp:user_detail' exchange=user.exchange.code user=user.id %}">               
                     <strong>{{ user.username }}</strong>    
                   </a>  | <form method="post" style="display:inline!important;" action="{% url 'logout' %}">
                       {% csrf_token %}

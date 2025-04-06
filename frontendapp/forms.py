@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from django import forms
 from django.forms.utils import ValidationError
-from .models import Exchange, Listing
+from coinapp.models import Exchange, Listing
 
 User = get_user_model()
 
@@ -67,7 +67,7 @@ class TransactionForm(forms.Form):
 
 
 class DetailWidget(forms.Textarea):
-    template_name = "coinapp/parts/_detail_widget.html"
+    template_name = "frontendapp/parts/_detail_widget.html"
 
 
 class ListingForm(forms.ModelForm):

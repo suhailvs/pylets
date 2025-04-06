@@ -11,7 +11,7 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import FormView
 
 from coinapp.models import Transaction, Listing, GeneralSettings, Exchange
-from coinapp.forms import (
+from frontendapp.forms import (
     SignUpForm,
     SignUpFormWithoutExchange,
     TransactionForm,
@@ -31,13 +31,13 @@ def about_view(request):
 
 class SignUpJoinView(CreateView):
     form_class = SignUpForm
-    success_url = reverse_lazy("coinapp:home")
+    success_url = reverse_lazy("frontendapp:home")
     template_name = "registration/signup_join.html"
 
 
 class SignUpNewView(CreateView):
     form_class = SignUpFormWithoutExchange
-    # success_url = reverse_lazy("coinapp:home")
+    # success_url = reverse_lazy("frontendapp:home")
     template_name = "registration/signup_new.html"
 
     def form_valid(self, form):
@@ -52,7 +52,7 @@ class SignUpNewView(CreateView):
                 user_obj.exchange=exchange_obj
                 user_obj.save()
                 login(self.request, user_obj)
-                return redirect(reverse_lazy("coinapp:home"))
+                return redirect(reverse_lazy("frontendapp:home"))
         else:
             return self.render_to_response(self.get_context_data(form=form))
 
@@ -105,7 +105,7 @@ def transaction_view(request):
                     amount=amt,
                 )
                 messages.success(request, f"Success! Payment success. txnId:{txn.id}")
-            return redirect("coinapp:home")
+            return redirect("frontendapp:home")
 
     else:
         form = TransactionForm()
@@ -117,7 +117,7 @@ def transaction_view(request):
 
 class ExchangeView(ListView):
     paginate_by = 20
-    template_name = "coinapp/exchanges.html"
+    template_name = "frontendapp/exchanges.html"
     context_object_name = "exchanges"
 
     def get_queryset(self):
@@ -126,7 +126,7 @@ class ExchangeView(ListView):
 
 class UserList(ListView):
     paginate_by = 20
-    template_name = "coinapp/user_list.html"
+    template_name = "frontendapp/user_list.html"
     context_object_name = "users"
 
     def get_queryset(self):
@@ -142,7 +142,7 @@ class UserList(ListView):
 
 
 class UserDetail(FormView):
-    template_name = "coinapp/user_detail.html"
+    template_name = "frontendapp/user_detail.html"
     form_class = ListingForm
 
     def get_context_data(self, **kwargs):
@@ -168,7 +168,7 @@ class UserDetail(FormView):
         obj.save()
         messages.success(self.request, f"Listing activated: {obj}.")
         return redirect(
-            "coinapp:user_detail",
+            "frontendapp:user_detail",
             exchange=self.kwargs["exchange"],
             user=self.kwargs["user"],
         )
@@ -184,10 +184,10 @@ class ListingDeleteView(DeleteView):
     def get_success_url(self):
         u = self.request.user
         return reverse(
-            "coinapp:user_detail", kwargs={"exchange": u.exchange.code, "user": u.id}
+            "frontendapp:user_detail", kwargs={"exchange": u.exchange.code, "user": u.id}
         )
 
 
 class ListingPreviewView(DetailView):
     model = Listing
- 
+    template_name = "frontendapp/listing_detail.html"

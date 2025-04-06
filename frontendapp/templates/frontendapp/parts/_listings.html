@@ -17,7 +17,7 @@
 <p class="lead">{% if listing_type == 'O' %}Offerings{% else %}Wants{% endif %}</p>
 <div class="list-group">
   {% for listing in userlistings|in_category:listing_type %}
-  <a href="{% url 'coinapp:listing_preview' listing.id %}" class="list-group-item list-group-item-action">
+  <a href="{% url 'frontendapp:listing_preview' listing.id %}" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{listing.category}}</h5>
       <small class="text-body-secondary">{{ listing.created_at|date }}</small>

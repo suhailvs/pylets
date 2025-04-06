@@ -3,9 +3,9 @@
 {% block content %} 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'coinapp:exchange_list' %}">Exchanges</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'coinapp:user_list' exchange=object.user.exchange.code %}">{{ object.user.exchange.code }}</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'coinapp:user_detail' exchange=object.user.exchange.code user=object.user.id %}">{{ object.user.username }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'frontendapp:exchange_list' %}">Exchanges</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'frontendapp:user_list' exchange=object.user.exchange.code %}">{{ object.user.exchange.code }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'frontendapp:user_detail' exchange=object.user.exchange.code user=object.user.id %}">{{ object.user.username }}</a></li>
     
     <li class="breadcrumb-item active" aria-current="page">{{object.id}}</li>
   </ol>
@@ -41,7 +41,7 @@
 </table>
 
 {% if request.user == object.user %}
-<a href="{% url 'coinapp:listing_delete' object.id %}">delete</a>
+<a href="{% url 'frontendapp:listing_delete' object.id %}">delete</a>
 {% endif %}
 
 {% endblock %}

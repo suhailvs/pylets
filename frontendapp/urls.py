@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = "coinapp"
+app_name = "frontendapp"
 urlpatterns = [
     path("", views.transaction_view, name="home"), # HomeView.as_view()
     path("users/", views.ExchangeView.as_view(), name="exchange_list"),

@@ -25,7 +25,7 @@ class TransactionTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.url = reverse("coinapp:home")
+        self.url = reverse("frontendapp:home")
         self.nusra = User.objects.get(username="8921513696")
         self.sulaiman = User.objects.get(username="8547622462")
 
@@ -101,7 +101,7 @@ class ListingTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.url = reverse(
-            "coinapp:user_detail", kwargs={"exchange": "KKDE", "user": 1}
+            "frontendapp:user_detail", kwargs={"exchange": "KKDE", "user": 1}
         )
 
     def test_offerings_list(self):
@@ -205,7 +205,7 @@ class ListingTest(TestCase):
             follow=True,
         )
         response = self.client.post(
-            reverse("coinapp:listing_delete", kwargs={"pk": 1}), follow=True
+            reverse("frontendapp:listing_delete", kwargs={"pk": 1}), follow=True
         )
 
         response = self.client.get(self.url)
@@ -218,12 +218,12 @@ class ListingTest(TestCase):
             follow=True,
         )
         response = self.client.post(
-            reverse("coinapp:listing_delete", kwargs={"pk": 1}), follow=True
+            reverse("frontendapp:listing_delete", kwargs={"pk": 1}), follow=True
         )
 
         response = self.client.get(self.url)
         self.assertNotIn("rice", [l.title for l in response.context["userlistings"]])
 
     def test_listing_preview(self):
-        response = self.client.get(reverse("coinapp:listing_preview", kwargs={"pk": 1}))
+        response = self.client.get(reverse("frontendapp:listing_preview", kwargs={"pk": 1}))
         self.assertIn("Matta rice", response.content.decode())

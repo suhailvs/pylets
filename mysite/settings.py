@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     # my apps
     "coinapp",
     "api",
+
+    # to remove
+    "frontendapp",
 ]
 
 MIDDLEWARE = [
@@ -157,8 +160,8 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 # Third party apps configuration
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 # LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = "coinapp:home"
-LOGOUT_REDIRECT_URL = "coinapp:home"
+LOGIN_REDIRECT_URL = "frontendapp:home"
+LOGOUT_REDIRECT_URL = "frontendapp:home"
 
 MAXIMUM_BALANCE = 10000
 MINIMUM_BALANCE = -10000
