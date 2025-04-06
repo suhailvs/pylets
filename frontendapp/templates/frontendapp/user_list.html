@@ -33,7 +33,7 @@
       <div class="media-body" style="font-size: 12px">
         <!-- <a href="#">{{user.get_full_name}}</a><br> -->
         <a href="{% url 'frontendapp:user_detail' exchange=user.exchange.code user=user.id %}">{{user.username}}</a><br>
-        Balance: <strong>{{user.amount}}</strong><br>
+        Balance: <strong>{{user.balance}}</strong><br>
         {{user.first_name}}
       </div>
     </div>
