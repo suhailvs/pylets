@@ -69,33 +69,56 @@ class TransactionMaxMinTest(APITestCase):
     ]
     def setUp(self):
         self.user_nusra = User.objects.get(username="8921513696")
-        # add lots of balance to user_sulaiman        
-        user_sulaiman = User.objects.get(username="8921513696")
-        user_sulaiman.balance= settings.MAXIMUM_BALANCE+1
-        user_sulaiman.save()
+        self.user_sulaiman = User.objects.get(username="8547622462")
+        
         
     def test_max_balance(self):
-        # send an amount of maximum_amt+1 to nusra
+        self.user_nusra.balance=settings.MAXIMUM_BALANCE-100
+        self.user_nusra.save()
+
+        # nusra has 900$, so nusra can only recieve max 100$
+        # sending amount of 101 to nusra must return error
         response = self.client.post(
             f"{BASE_URL}login/",
             {"username": "8547622462", "password": "sumee1910"},
             format="json",
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json()["username"], "8547622462")
         token = response.json()["key"]
         response = self.client.post(
             f"{BASE_URL}transactions/",
             {
                 "user": self.user_nusra.id,
-                "amount": settings.MAXIMUM_BALANCE+1,
-                "message": "caring",
+                "amount": 101,
+                "message": "sending amount of 101 to nusra must return error",
             },
             headers={"Authorization": f"Token {token}"},
             format="json",
         )
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    def test_min_balance(self):
+        # nusra has -990$, so nusra can only send max 10$
+        self.user_nusra.balance=settings.MINIMUM_BALANCE+10
+        self.user_nusra.save()
 
+        # send 11$ to sulaiman
+        response = self.client.post(
+            f"{BASE_URL}login/",
+            {"username": "8921513696", "password": "sumee1910"},
+            format="json",
+        )
+        token = response.json()["key"]
+        response = self.client.post(
+            f"{BASE_URL}transactions/",
+            {
+                "user": self.user_sulaiman.id,
+                "amount": 11,
+                "message": "send 11$ to sulaiman must return error",
+            },
+            headers={"Authorization": f"Token {token}"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 
 class RegistrationTest(APITestCase):
