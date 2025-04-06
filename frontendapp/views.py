@@ -4,13 +4,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
-from django.db.models import Q, F, BooleanField, Case, When
+from django.db.models import Q
 from django.db import transaction
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import FormView
 
-from coinapp.models import Transaction, Listing, GeneralSettings, Exchange
+from coinapp.models import Listing, GeneralSettings, Exchange
 from frontendapp.forms import (
     SignUpForm,
     SignUpFormWithoutExchange,
@@ -18,6 +18,7 @@ from frontendapp.forms import (
     ExchangeForm,
     ListingForm,
 )
+from api.utils import get_transaction_queryset, save_transaction
 
 User = get_user_model()
 
@@ -45,11 +46,11 @@ class SignUpNewView(CreateView):
         exchange_form = ctx["exchange_form"]
         if exchange_form.is_valid() and form.is_valid():
             with transaction.atomic():
-                user_obj = form.save()                
-                exchange_obj = exchange_form.save(commit=False)                
-                exchange_obj.created_by=user_obj
+                user_obj = form.save()
+                exchange_obj = exchange_form.save(commit=False)
+                exchange_obj.created_by = user_obj
                 exchange_obj.save()
-                user_obj.exchange=exchange_obj
+                user_obj.exchange = exchange_obj
                 user_obj.save()
                 login(self.request, user_obj)
                 return redirect(reverse_lazy("frontendapp:home"))
@@ -65,21 +66,6 @@ class SignUpNewView(CreateView):
         return ctx
 
 
-def get_transactions(user):
-    return (
-        Transaction.objects.filter(Q(seller=user) | Q(buyer=user))
-        .select_related("seller", "buyer")
-        .annotate(
-            is_received=Case(
-                When(Q(seller=user), then=True),
-                default=False,
-                output_field=BooleanField(),
-            )
-        )
-        .order_by("-created_at")
-    )
-
-
 @login_required
 def transaction_view(request):
     if request.method == "POST":
@@ -90,26 +76,20 @@ def transaction_view(request):
             # default is seller transaction(receive money)
             seller = request.user
             buyer = form.cleaned_data["to_user"]
-            if request.POST["transaction_type"] == "buyer":
-                # send money
-                seller, buyer = buyer, seller
-            with transaction.atomic():
-                seller.balance = F("balance") + amt
-                buyer.balance = F("balance") - amt
-                seller.save(update_fields=["balance"])
-                buyer.save(update_fields=["balance"])
-                txn = Transaction.objects.create(
-                    seller=seller,
-                    buyer=buyer,
-                    description=desc,
-                    amount=amt,
-                )
+
+            response_data = save_transaction(
+                request.POST["transaction_type"], amt, desc, seller, buyer
+            )
+            if response_data["success"]:
+                txn = response_data["txn_obj"]
                 messages.success(request, f"Success! Payment success. txnId:{txn.id}")
+            else:
+                messages.warning(request, response_data["msg"])
             return redirect("frontendapp:home")
 
     else:
         form = TransactionForm()
-    latest_trans = get_transactions(request.user)[:5]
+    latest_trans = get_transaction_queryset(request.user)[:5]
     return render(
         request, "home.html", {"transaction_form": form, "transactions": latest_trans}
     )
@@ -150,7 +130,7 @@ class UserDetail(FormView):
         ctx = super().get_context_data(**kwargs)
         extra = {
             "current_user": user,
-            "transactions": get_transactions(user),
+            "transactions": get_transaction_queryset(user),
             "userlistings": Listing.objects.filter(user=user),
         }
         return ctx | extra
@@ -184,7 +164,8 @@ class ListingDeleteView(DeleteView):
     def get_success_url(self):
         u = self.request.user
         return reverse(
-            "frontendapp:user_detail", kwargs={"exchange": u.exchange.code, "user": u.id}
+            "frontendapp:user_detail",
+            kwargs={"exchange": u.exchange.code, "user": u.id},
         )
 
 
