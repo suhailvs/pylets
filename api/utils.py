@@ -18,21 +18,26 @@ def get_transaction_queryset(user):
         .order_by("-created_at")
     )
 
-def save_transaction(transaction_type,amt,desc,seller, buyer):    
+
+def save_transaction(transaction_type, amt, desc, seller, buyer):
+    resp = lambda s, msg, txn=None: {"success": s, "msg": msg, "txn_obj": txn}
     if seller == buyer:
-        msg = "You cannot send money to you own account"
-        return {'success':False,'msg':msg,'txn_obj':None}
+        return resp(False, "You cannot transfer funds to your own account.")
+    if seller.exchange_id != buyer.exchange_id:
+        msg = "Oops! You can only send money to members of your own exchange."
+        return resp(False, msg)
+
     if transaction_type == "buyer":
         # send money
         seller, buyer = buyer, seller
 
     amt = int(amt)
     # _check_max_min_balance
-    if seller.balance+amt > settings.MAXIMUM_BALANCE:
-        return {'success':False,'msg':"Seller has reached the maximum allowed amount",'txn_obj':None}
-    if buyer.balance-amt < settings.MINIMUM_BALANCE:
-        return {'success':False,'msg':"Insufficient balance to complete the transaction.",'txn_obj':None}
-    
+    if seller.balance + amt > settings.MAXIMUM_BALANCE:
+        return resp(False, "Seller has reached the maximum allowed amount")
+    if buyer.balance - amt < settings.MINIMUM_BALANCE:
+        return resp(False, "Insufficient balance to complete the transaction.")
+
     with transaction.atomic():
         seller.balance = F("balance") + amt
         buyer.balance = F("balance") - amt
@@ -44,5 +49,5 @@ def save_transaction(transaction_type,amt,desc,seller, buyer):
             description=desc,
             amount=amt,
         )
-        return {'success':True,'msg':'','txn_obj':txn}
-    return {'success':False,'msg':"Transaction Failed",'txn_obj':None}
+        return resp(True, "", txn)
+    return resp(False, "Transaction Failed")

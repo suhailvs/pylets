@@ -13,7 +13,10 @@ class TransactionTest(APITestCase):
     fixtures = [
         "sample.json",
     ]
-
+    def setUp(self):
+        self.user_nusra = User.objects.get(username="8921513696")
+        self.user_sulaiman = User.objects.get(username="8547622462")
+        
     def test_login_and_make_transaction(self):
         # login as sulaiman and make a seller transaction of 10$ -> nusra
         response = self.client.post(
@@ -27,7 +30,7 @@ class TransactionTest(APITestCase):
         response = self.client.post(
             f"{BASE_URL}transactions/",
             {
-                "user": User.objects.get(username="8921513696").id,
+                "user": self.user_nusra.id,
                 "amount": 10,
                 "message": "caring",
             },
@@ -62,16 +65,27 @@ class TransactionTest(APITestCase):
         # check sulaiman has -13$ balance
         pass
     
-
-class TransactionMaxMinTest(APITestCase):
-    fixtures = [
-        "sample.json",
-    ]
-    def setUp(self):
-        self.user_nusra = User.objects.get(username="8921513696")
-        self.user_sulaiman = User.objects.get(username="8547622462")
-        
-        
+    def test_send_transactions_only_to_own_exchange(self):
+        # sulaiman is kolakkode exchange user, 
+        # so must not able to send to sabareesh
+        response = self.client.post(
+            f"{BASE_URL}login/",
+            {"username": "8547622462", "password": "sumee1910"},
+            format="json",
+        )
+        token = response.json()["key"]
+        response = self.client.post(
+            f"{BASE_URL}transactions/",
+            {
+                "user": User.objects.get(username="8848338141").id,
+                "amount": '101',
+                "message": "sending amount of 101 to sabreesh must return error",
+            },
+            headers={"Authorization": f"Token {token}"},
+            format="json",
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    
     def test_max_balance(self):
         self.user_nusra.balance=settings.MAXIMUM_BALANCE-100
         self.user_nusra.save()
