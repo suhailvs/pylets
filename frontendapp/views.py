@@ -84,7 +84,7 @@ def transaction_view(request):
                 txn = response_data["txn_obj"]
                 messages.success(request, f"Success! Payment success. txnId:{txn.id}")
             else:
-                messages.warning(request, response_data["msg"])
+                messages.error(request, response_data["msg"])
             return redirect("frontendapp:home")
 
     else:

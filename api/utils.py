@@ -26,11 +26,12 @@ def save_transaction(transaction_type,amt,desc,seller, buyer):
         # send money
         seller, buyer = buyer, seller
 
+    amt = int(amt)
     # _check_max_min_balance
     if seller.balance+amt > settings.MAXIMUM_BALANCE:
-        return {'success':False,'msg':"Seller reached Maximum balance",'txn_obj':None}
+        return {'success':False,'msg':"Seller has reached the maximum allowed amount",'txn_obj':None}
     if buyer.balance-amt < settings.MINIMUM_BALANCE:
-        return {'success':False,'msg':"Buyer reached Minimum balance",'txn_obj':None}
+        return {'success':False,'msg':"Insufficient balance to complete the transaction.",'txn_obj':None}
     
     with transaction.atomic():
         seller.balance = F("balance") + amt

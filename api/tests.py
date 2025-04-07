@@ -88,7 +88,7 @@ class TransactionMaxMinTest(APITestCase):
             f"{BASE_URL}transactions/",
             {
                 "user": self.user_nusra.id,
-                "amount": 101,
+                "amount": '101',
                 "message": "sending amount of 101 to nusra must return error",
             },
             headers={"Authorization": f"Token {token}"},
