@@ -95,7 +95,28 @@
       "exchange": 1
     }
   },
-
+  {
+    "model": "coinapp.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$eQLviIgRhoZDDoHZLTAFBS$aseC+7p5O5jntVioAhpkZHoGVYdR4xp490e/0WaMwdI=",
+        "last_login": "2024-10-30T10:47:40.966Z",
+        "is_superuser": false,
+        "username": "8848338141",
+        "first_name": "sabareesh",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2024-10-30T04:36:30.239Z",
+        "exchange": 2,
+        "government_id": "3",
+        "date_of_birth": "2025-03-09",
+        "balance": 70,
+        "groups": [],
+        "user_permissions": []
+    }
+  },
   {
     "model": "coinapp.listing",
     "pk": 1,
