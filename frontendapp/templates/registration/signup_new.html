@@ -20,3 +20,25 @@
 </div>
 {% endblock %} 
 
+
+{% block js %}
+<script>
+$("#id_dummy_country_dropdown").change(function () {
+  $.ajax({ 
+    url: '{% url "frontendapp:ajax_views" "get_cities" %}',
+    data: {'country': $(this).val()},
+    success: function (response) {   // `data` is the return of the `load_cities` view function
+      const citySelect = document.getElementById('id_country_city');
+      citySelect.innerHTML = '';  // Clear existing
+      response.data.forEach(city => {
+        const option = document.createElement('option');
+        option.value = city[0];
+        option.text = city[1];
+        citySelect.appendChild(option);
+      });
+    }
+  });
+
+});
+</script>
+{% endblock %}

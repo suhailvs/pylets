@@ -14,7 +14,7 @@
       "code": "KKDE",
       "name": "Kolakkode exchange",
       "address": "Kolakkode, Palakkad, Kerala. PIN-678686",
-      "country": "IN",
+      "country_city": "IN",
       "created_by":1
     }
   },
@@ -25,7 +25,7 @@
       "code": "PIXL",
       "name": "Pixdynamics exchange",
       "address": "Carnival Infopark, Kakkanad, Kochi",
-      "country": "IN",
+      "country_city": "IN",
       "created_by":1
     }
   },

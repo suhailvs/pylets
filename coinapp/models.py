@@ -9,16 +9,15 @@ class User(AbstractUser):
         "Exchange", on_delete=models.SET_NULL, null=True, related_name="users"
     )
     government_id = models.CharField(max_length=50, unique=True)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)
 
 
 class Exchange(models.Model):
-    COUNTRY_CHOICES = misc.COUNTRIES
     code = models.CharField(max_length=5, unique=True)
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
+    country_city = models.CharField(max_length=6)
     created_by = models.ForeignKey(
         "User", on_delete=models.SET_NULL, null=True, related_name="created_exchanges"
     )
