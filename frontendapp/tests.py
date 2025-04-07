@@ -10,13 +10,28 @@ class CreateExchangeTest(TestCase):
         self.url = reverse("signup_new")
 
     def test_createexchange(self):
-        response = self.client.post(
-            self.url,
-            {"code":"KKED", "title":"sdfa", "address":"aa", "country":"IN","username": '7238233233', "password1": "dummypassword",
-             "password2":"dummypassword","email":"sdfa@gag.com", "govtid":"123123","dob":"1988-12-04","tandc":True},
-            follow=True,
+        data = {"code":"KKED", "name":"Kolakkode Exchange", "address":"aa", "dummy_country_dropdown":"IN","country_city":"IN-KL",
+            "username": '7238233233',"password1": "dummypassword","password2":"dummypassword","email":"suhail@gmail.com", 
+            "government_id":"123123","date_of_birth":"1988-12-04","tandc":True}
+        response = self.client.post(self.url,data,follow=True)
+        # check on dummy_country_dropdown dropdown, India is selected
+        self.assertInHTML(
+            '<option value="IN" selected="">India</option>', response.content.decode()
         )
-        # print(response.content)
+
+        # check on country_city dropdown, Kerala is selected
+        self.assertInHTML(
+            '<option value="IN-KL" selected="">Kerala</option>', response.content.decode()
+        )
+        data['first_name']="Suhail"
+
+        response = self.client.post(self.url,data,follow=True)
+        # check user logged in
+        self.assertInHTML(
+            f'<a href="{reverse("frontendapp:user_detail", args=("KKED","1"))}"><strong>7238233233</strong> </a>', 
+            response.content.decode()
+        )
+
 
 class TransactionTest(TestCase):
     fixtures = [
