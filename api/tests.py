@@ -11,7 +11,7 @@ BASE_URL = "/api/v1/"
 
 class TransactionTest(APITestCase):
     fixtures = [
-        "sample.json",
+        "datas.json",
     ]
     def setUp(self):
         self.user_nusra = User.objects.get(username="8921513696")

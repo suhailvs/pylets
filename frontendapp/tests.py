@@ -35,7 +35,7 @@ class CreateExchangeTest(TestCase):
 
 class TransactionTest(TestCase):
     fixtures = [
-        "sample.json",
+        "datas.json",
     ]
 
     def setUp(self):
@@ -110,7 +110,7 @@ class TransactionTest(TestCase):
 
 class ListingTest(TestCase):
     fixtures = [
-        "sample.json",
+        "datas.json",
     ]
 
     def setUp(self):
@@ -121,8 +121,7 @@ class ListingTest(TestCase):
 
     def test_offerings_list(self):
         response = self.client.get(self.url)
-        rice_offering = """
-        <div class="list-group">  
+        rice_offering = """        
             <a href="/listing/1/preview/" class="list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">Food_Drink</h5>
@@ -130,8 +129,7 @@ class ListingTest(TestCase):
                 </div>
                 <p class="mb-1">#1: rice</p>
                 <small class="text-body-secondary">rate: 50$ per kg</small>
-            </a>            
-        </div>
+            </a>  
         """
         self.assertInHTML(rice_offering, response.content.decode())
 

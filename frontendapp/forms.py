@@ -14,6 +14,14 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True)
     tandc = forms.BooleanField(label="Terms and Conditions.")
 
+    def clean_government_id(self):
+        govt_id = self.cleaned_data["government_id"]
+        if govt_id:
+            if User.objects.filter(government_id=govt_id).exists():
+                raise ValidationError({'government_id': 'This Government ID must be unique.'})
+        return govt_id
+    
+        
     class Meta(UserCreationForm.Meta):
         model = User
         fields = (
@@ -46,7 +54,6 @@ def get_state_choices(country_code):
 
 
 class ExchangeForm(forms.ModelForm):
-    # country = forms.CharField(required=True, widget=forms.Select(choices=[]),label="City")
     country_city = forms.ChoiceField(choices=[], label="City")
 
     def clean_code(self):
@@ -71,7 +78,7 @@ class ExchangeForm(forms.ModelForm):
 
     class Meta:
         model = Exchange
-        fields = ("code", "name", "address", "country_city")
+        fields = ("code", "name", "address", "postal_code","country_city")
 
 
 class TransactionForm(forms.Form):

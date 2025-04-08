@@ -8,7 +8,7 @@ class User(AbstractUser):
     exchange = models.ForeignKey(
         "Exchange", on_delete=models.SET_NULL, null=True, related_name="users"
     )
-    government_id = models.CharField(max_length=50, unique=True)
+    government_id = models.CharField(max_length=50, blank=True)
     date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)
 
@@ -18,6 +18,7 @@ class Exchange(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     country_city = models.CharField(max_length=6)
+    postal_code = models.CharField(max_length=20, blank=True)
     created_by = models.ForeignKey(
         "User", on_delete=models.SET_NULL, null=True, related_name="created_exchanges"
     )
@@ -28,10 +29,7 @@ class Exchange(models.Model):
 
 class Listing(models.Model):
     CATEGORY_CHOICES = misc.CATEGORIES
-    LISTING_CHOICES = [
-        ("O", "Offering"),
-        ("W", "Wants"),
-    ]
+    LISTING_CHOICES = [("O", "Offering"), ("W", "Wants"),]
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="listings")
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     title = models.CharField(max_length=255)
