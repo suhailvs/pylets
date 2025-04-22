@@ -3,6 +3,20 @@ from django.db import transaction
 from django.conf import settings
 from coinapp.models import Transaction
 
+from rest_framework.throttling import SimpleRateThrottle
+
+class UsernameRateThrottle(SimpleRateThrottle):
+    scope = 'login'
+
+    def get_cache_key(self, request, view):
+        username = request.data.get('username')
+        if not username:
+            return None
+        return self.cache_format % {
+            'scope': self.scope,
+            'ident': username.lower()
+        }
+
 
 def get_transaction_queryset(user):
     return (

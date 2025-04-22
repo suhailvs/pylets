@@ -18,13 +18,14 @@ from .serializers import (
     UserSerializer,
     UserCreateSerializer,
 )
-from .utils import get_transaction_queryset, save_transaction
+from .utils import get_transaction_queryset, save_transaction, UsernameRateThrottle
 
 User = get_user_model()
 
 
-class CustomAuthToken(ObtainAuthToken):
 
+class CustomAuthToken(ObtainAuthToken):
+    throttle_classes = [UsernameRateThrottle]
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(
             data=request.data, context={"request": request}
