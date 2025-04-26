@@ -1,4 +1,6 @@
-# stackcoin
+# LETS Backend
+
+Local Exchange Trading System Backend
 
 ## Run it locally
 
@@ -18,8 +20,8 @@ on pythonanywhere webapps tab add 2 urls in `Static files` section:
 
 URL | Directory
 --- | ---
-/media/ | /home/suhailvs/stackcoin/mysite/media 	 
-/static/ | /home/suhailvs/stackcoin/mysite/static 	 
+/media/ | /home/suhailvs/pylets/mysite/media 	 
+/static/ | /home/suhailvs/pylets/mysite/static 	 
 
 ```
 python manage.py collectstatic
@@ -30,7 +32,7 @@ python manage.py collectstatic
 * https://vercel.com/suhailvs-projects -> Add New... -> Project -> import git repo -> other
 * add `app = application` in `mysite/wsgi.py`
 * to access profitserver's postgres database from vercel, 
-    fix in profit server `80.85.156.44` add `host    stackcoin    postgres    0.0.0.0/0   md5` to `/etc/postgresql/14/main/pg_hba.conf`
+    fix in profit server `80.85.156.44` add `host    pylets    postgres    0.0.0.0/0   md5` to `/etc/postgresql/14/main/pg_hba.conf`
 * add all environment variables in vercel(ie DB_HOST: 80.85.156.44)
 
 ## The Problems with Conventional Money
