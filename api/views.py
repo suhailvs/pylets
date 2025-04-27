@@ -27,23 +27,15 @@ User = get_user_model()
 class CustomAuthToken(ObtainAuthToken):
     throttle_classes = [UsernameRateThrottle]
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(
-            data=request.data, context={"request": request}
-        )
-        # serializer.is_valid(raise_exception=True)
-        if not serializer.is_valid():
-            # check for inactive users
-            inactive_user = User.objects.filter(
-                username=request.data["username"]
-            ).first()
-            if inactive_user:
-                if inactive_user.check_password(request.data["password"]):
-                    # user is inactive
-                    return Response(
-                        {"is_active": False, "message": "Verification is pending."}
-                    )
-            raise ValidationError(serializer.errors)
-
+        # check for inactive users
+        inactive_user = User.objects.filter(username=request.data["username"], is_active=False).first()
+        if inactive_user:
+            if inactive_user and inactive_user.check_password(request.data["password"]):
+                # user is inactive
+                return Response({"is_active": False, "message": "Verification is pending."},status=status.HTTP_400_BAD_REQUEST)
+            
+        serializer = self.serializer_class(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
         token, created = Token.objects.get_or_create(user=user)
         return Response(
@@ -136,11 +128,11 @@ class VerifyUserView(APIView):
     permission_classes = [IsAuthenticated]
 
     def is_trusted_user(self,user):
-        min_verifications = 3
+        min_verifications = 1
         min_trust_score = 0.7
-        verifications = UserVerification.objects.filter(candidate=user)
-        print(verifications)
+        verifications = UserVerification.objects.filter(candidate=user)        
         high_trust_verifications = verifications.filter(trust_score__gte=min_trust_score)
+        # print('verifications:',high_trust_verifications.count(), verifications.count())
         return high_trust_verifications.count() >= min_verifications
 
     def activate_user(self, user):        
