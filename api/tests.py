@@ -9,6 +9,27 @@ User = get_user_model()
 BASE_URL = "/api/v1/"
 
 
+class UserConnectTest(APITestCase):
+    fixtures = [
+        "datas.json",
+    ]
+    def setUp(self):
+        self.user_nusra = User.objects.get(username="8921513696")
+        self.user_sulaiman = User.objects.get(username="8547622462")
+        
+    def test_login_and_connect_user(self):
+        # login as sulaiman and make a connection with nusra
+        response = self.client.post(
+            f"{BASE_URL}login/",
+            {"username": "8547622462", "password": "sumee1910"},
+            format="json",
+        )
+        token = response.json()["key"]
+        response = self.client.post(f"{BASE_URL}verifyuser/",{"candidate_id": self.user_nusra.id},
+            headers={"Authorization": f"Token {token}"},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
 class TransactionTest(APITestCase):
     fixtures = [
         "datas.json",

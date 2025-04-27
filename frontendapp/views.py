@@ -59,9 +59,7 @@ class SignUpNewView(CreateView):
         if exchange_form.is_valid() and form.is_valid():
             with transaction.atomic():
                 user_obj = form.save()
-                exchange_obj = exchange_form.save(commit=False)
-                exchange_obj.created_by = user_obj
-                exchange_obj.save()
+                exchange_obj = exchange_form.save()
                 user_obj.exchange = exchange_obj
                 user_obj.save()
                 login(self.request, user_obj)

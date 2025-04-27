@@ -4,6 +4,19 @@ from django_resized import ResizedImageField
 from . import misc
 
 
+class UserVerification(models.Model):
+    verifier = models.ForeignKey("User", related_name="verifications_made", on_delete=models.CASCADE)
+    candidate = models.ForeignKey("User", related_name="verifications_received", on_delete=models.CASCADE)
+    trust_score = models.FloatField(default=0.1)  # 0 to 1, how much verifier trusts candidate
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("verifier", "candidate")  # can't verify same user twice
+
+    def __str__(self):
+        return f"{self.verifier.username} -> {self.candidate.username}"
+    
+
 class User(AbstractUser):
     exchange = models.ForeignKey(
         "Exchange", on_delete=models.SET_NULL, null=True, related_name="users"
@@ -19,9 +32,9 @@ class Exchange(models.Model):
     address = models.CharField(max_length=255)
     country_city = models.CharField(max_length=6)
     postal_code = models.CharField(max_length=20, blank=True)
-    created_by = models.ForeignKey(
-        "User", on_delete=models.SET_NULL, null=True, related_name="created_exchanges"
-    )
+    # created_by = models.ForeignKey(
+    #     "User", on_delete=models.SET_NULL, null=True, related_name="created_exchanges"
+    # )
 
     def __str__(self):
         return f"{self.code}({self.name})"
