@@ -9,6 +9,56 @@ User = get_user_model()
 BASE_URL = "/api/v1/"
 
 
+class VerifyUserTest(APITestCase):
+    fixtures = [
+        "datas.json",
+    ]
+    def setUp(self):
+        self.user_sulaiman = User.objects.get(username="8547622462")
+        
+    def test_create_and_verify_user(self):
+        # new user registration
+        response = self.client.post(
+            f"{BASE_URL}registration/",
+            {
+                "first_name":"sufail","username": "6238287359", "password": "sumee1910",
+                "government_id":"", "date_of_birth":"1991-12-21","exchange":"1",
+            },
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        user_sufail = User.objects.get(username="6238287359")
+        # login as sulaiman and verify sufail without trust_score
+        response = self.client.post(
+            f"{BASE_URL}login/",
+            {"username": self.user_sulaiman.username, "password": "sumee1910"},
+        )
+        token = response.json()["key"]
+        response = self.client.post(f"{BASE_URL}verifyuser/",{"candidate_id": user_sufail.id},
+            headers={"Authorization": f"Token {token}"},
+        )
+
+        user_sufail.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(user_sufail.is_active, False)
+        # try to login sufail(not verified)
+        response = self.client.post(f"{BASE_URL}login/",{"username": "6238287359", "password": "sumee1910"})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.json()['is_active'], False)
+        self.assertEqual(response.json()['message'], 'Verification is pending.')
+
+        # verify sufail with high trust_score
+        response = self.client.post(f"{BASE_URL}verifyuser/",{"candidate_id": user_sufail.id, "trust_score":"0.8"},
+            headers={"Authorization": f"Token {token}"},
+        )
+        user_sufail.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(user_sufail.is_active, True)
+
+        # try to login sufail(verified)
+        response = self.client.post(f"{BASE_URL}login/",{"username": "6238287359", "password": "sumee1910"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()['username'], "6238287359")
+
 class TransactionTest(APITestCase):
     fixtures = [
         "datas.json",
@@ -163,6 +213,6 @@ class RegistrationTest(APITestCase):
             format="json",
         )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['message'], 'Verification is pending.')
    

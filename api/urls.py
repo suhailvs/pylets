@@ -15,4 +15,5 @@ urlpatterns = [
     path('transactions/',views.Transactions.as_view()),
     path('login/', views.CustomAuthToken.as_view()),
     path('registration/', views.CreateUserView.as_view()),
+    path('verifyuser/', views.VerifyUserView.as_view(), name='verify-user'),
 ]

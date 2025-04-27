@@ -1,3 +1,7 @@
+"""
+for testing frontendapp you must change line 
+`if settings.DEBUG:`->`if True:` in mysite/urls.py
+"""
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model

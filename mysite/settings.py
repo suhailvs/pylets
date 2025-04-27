@@ -180,7 +180,7 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100/day',
         'user': '1000/day',
-        'login': '2/min',  # Apply to our custom throttle
+        'login': '5/min',  # Apply to our custom throttle
     }
 }
 SITE_ID = 1 
