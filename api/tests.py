@@ -220,7 +220,7 @@ class RegistrationTest(APITestCase):
 
 
 
-class RegistrationTest(APITestCase):
+class UserDetailsTest(APITestCase):
     fixtures = [
         "datas.json",
     ]
