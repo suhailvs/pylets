@@ -8,8 +8,8 @@
   {% for exchange in exchanges %}
   <tr>
     <td><a href="{% url 'frontendapp:user_list' exchange=exchange.code %}">{{exchange.code}}</a></td>
-    <td>{{exchange.title}}</td>
-    <td>{{exchange.get_country_display}}</td>    
+    <td>{{exchange.name}}</td>
+    <td>{{exchange.get_country_and_subdivision}}</td>    
   </tr>
   {% endfor %}
 </table>
