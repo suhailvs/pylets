@@ -1,8 +1,9 @@
+import re
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions as django_exceptions
-from coinapp.models import Listing, Transaction, Exchange
+from coinapp.models import Listing, Transaction
 from .fields import HyperlinkedSorlImageField
 
 User = get_user_model()
@@ -12,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "first_name","last_login", "username","is_active", "balance",
-            'government_id','date_of_birth','exchange']
+            'phone','government_id','date_of_birth','exchange']
         read_only_fields = fields
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -22,12 +23,30 @@ class UserCreateSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             "first_name",
-            "username",
+            'email',
+            "phone",
             "password",
             "government_id",
             "date_of_birth",
             "exchange",
+            'username',
         ]
+        read_only_fields = ['username']
+
+    def generate_username(self, exchange):
+        PREFIX = exchange.code
+        latest_user = User.objects.filter(username__startswith=PREFIX).order_by('-username').first()
+        if latest_user:
+            # Extract the numeric part
+            match = re.search(r'(\d+)$', latest_user.username)
+            if match:
+                number = int(match.group(1)) + 1
+            else:
+                number = 1
+        else:
+            number = 1
+
+        return f"{PREFIX}{str(number).zfill(3)}"  # 3-digit number with leading zeros
 
     def validate(self, attrs):       
         user = User(**attrs)
@@ -41,6 +60,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        validated_data['username'] = self.generate_username(validated_data['exchange'])
         user = User.objects.create_user(**validated_data)
         user.is_active = False
         user.save()

@@ -45,8 +45,8 @@ class TransactionTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.url = reverse("frontendapp:home")
-        self.nusra = User.objects.get(username="8921513696")
-        self.sulaiman = User.objects.get(username="8547622462")
+        self.nusra = User.objects.get(username="KKDE002")
+        self.sulaiman = User.objects.get(username="KKDE003")
 
     def test_login_and_make_seller_transaction(self):
         response = self.client.get(self.url, follow=True)
@@ -140,7 +140,7 @@ class ListingTest(TestCase):
     def test_offering_create(self):
         self.client.post(
             reverse("login"),
-            {"username": "7356775981", "password": "sumee1910"},
+            {"username": "KKDE001", "password": "sumee1910"},
             follow=True,
         )
         response = self.client.get(self.url)
@@ -182,7 +182,7 @@ class ListingTest(TestCase):
     def test_want_create(self):
         self.client.post(
             reverse("login"),
-            {"username": "7356775981", "password": "sumee1910"},
+            {"username": "KKDE001", "password": "sumee1910"},
             follow=True,
         )
         response = self.client.get(self.url)
@@ -218,7 +218,7 @@ class ListingTest(TestCase):
         # nusra must not able to delete rice listing
         self.client.post(
             reverse("login"),
-            {"username": "8921513696", "password": "sumee1910"},
+            {"username": "KKDE002", "password": "sumee1910"},
             follow=True,
         )
         response = self.client.post(
@@ -231,7 +231,7 @@ class ListingTest(TestCase):
         # suhail can delete rice listing
         self.client.post(
             reverse("login"),
-            {"username": "7356775981", "password": "sumee1910"},
+            {"username": "KKDE001", "password": "sumee1910"},
             follow=True,
         )
         response = self.client.post(

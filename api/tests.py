@@ -15,19 +15,19 @@ class VerifyUserTest(APITestCase):
         "datas.json",
     ]
     def setUp(self):
-        self.user_sulaiman = User.objects.get(username="8547622462")
+        self.user_sulaiman = User.objects.get(username="KKDE003")
         
     def test_create_and_verify_user(self):
         # new user registration
         response = self.client.post(
             f"{BASE_URL}registration/",
             {
-                "first_name":"sufail","username": "6238287359", "password": "sumee1910",
+                "first_name":"sufail","password": "dummypassword",'phone': 'dummyphone',
                 "government_id":"", "date_of_birth":"1991-12-21","exchange":"1",
             },
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        user_sufail = User.objects.get(username="6238287359")
+        user_sufail = User.objects.get(username="KKDE005") 
         # login as sulaiman and verify sufail without trust_score
         response = self.client.post(
             f"{BASE_URL}login/",
@@ -42,7 +42,7 @@ class VerifyUserTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(user_sufail.is_active, False)
         # try to login sufail(not verified)
-        response = self.client.post(f"{BASE_URL}login/",{"username": "6238287359", "password": "sumee1910"})
+        response = self.client.post(f"{BASE_URL}login/",{"username": "KKDE005", "password": "dummypassword"})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['is_active'], False)
         self.assertEqual(response.json()['message'], 'Verification is pending.')
@@ -56,27 +56,27 @@ class VerifyUserTest(APITestCase):
         self.assertEqual(user_sufail.is_active, True)
 
         # try to login sufail(verified)
-        response = self.client.post(f"{BASE_URL}login/",{"username": "6238287359", "password": "sumee1910"})
+        response = self.client.post(f"{BASE_URL}login/",{"username": "KKDE005", "password": "dummypassword"})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json()['username'], "6238287359")
+        self.assertEqual(response.json()['username'], "KKDE005")
 
 class TransactionTest(APITestCase):
     fixtures = [
         "datas.json",
     ]
     def setUp(self):
-        self.user_nusra = User.objects.get(username="8921513696")
-        self.user_sulaiman = User.objects.get(username="8547622462")
+        self.user_nusra = User.objects.get(username="KKDE002")
+        self.user_sulaiman = User.objects.get(username="KKDE003")
         
     def test_login_and_make_transaction(self):
         # login as sulaiman and make a seller transaction of 10$ -> nusra
         response = self.client.post(
             f"{BASE_URL}login/",
-            {"username": "8547622462", "password": "sumee1910"},
+            {"username": "KKDE003", "password": "sumee1910"},
             format="json",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json()["username"], "8547622462")
+        self.assertEqual(response.json()["username"], "KKDE003")
         token = response.json()["key"]
         response = self.client.post(
             f"{BASE_URL}transactions/",
@@ -99,11 +99,11 @@ class TransactionTest(APITestCase):
         # login as nusra. check she has -10$ balance
         response = self.client.post(
             f"{BASE_URL}login/",
-            {"username": "8921513696", "password": "sumee1910"},
+            {"username": "KKDE002", "password": "sumee1910"},
             format="json",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json()["username"], "8921513696")
+        self.assertEqual(response.json()["username"], "KKDE002")
         response = self.client.get(
             f"{BASE_URL}ajax/?purpose=userbalance",
             headers={"Authorization": f"Token {response.json()['key']}"},
@@ -121,14 +121,14 @@ class TransactionTest(APITestCase):
         # so must not able to send to sabareesh
         response = self.client.post(
             f"{BASE_URL}login/",
-            {"username": "8547622462", "password": "sumee1910"},
+            {"username": "KKDE003", "password": "sumee1910"},
             format="json",
         )
         token = response.json()["key"]
         response = self.client.post(
             f"{BASE_URL}transactions/",
             {
-                "user": User.objects.get(username="8848338141").id,
+                "user": User.objects.get(username="PIXL001").id,
                 "amount": '101',
                 "message": "sending amount of 101 to sabreesh must return error",
             },
@@ -145,7 +145,7 @@ class TransactionTest(APITestCase):
         # sending amount of 101 to nusra must return error
         response = self.client.post(
             f"{BASE_URL}login/",
-            {"username": "8547622462", "password": "sumee1910"},
+            {"username": "KKDE003", "password": "sumee1910"},
             format="json",
         )
         token = response.json()["key"]
@@ -169,7 +169,7 @@ class TransactionTest(APITestCase):
         # send 11$ to sulaiman
         response = self.client.post(
             f"{BASE_URL}login/",
-            {"username": "8921513696", "password": "sumee1910"},
+            {"username": "KKDE002", "password": "sumee1910"},
             format="json",
         )
         token = response.json()["key"]
@@ -187,36 +187,29 @@ class TransactionTest(APITestCase):
 
 
 class RegistrationTest(APITestCase):
-
+    fixtures = [
+        "datas.json",
+    ]
     def test_create_user_and_login(self):
         # create a new user
         response = self.client.post(
             f"{BASE_URL}registration/",
-            {"username": "1234567890", "password": "mypass1234","government_id":"123456","date_of_birth":"1988-12-04"},
-            format="json",
+            {"password": "mypass1234","phone":"9000000000","government_id":"123456","date_of_birth":"1988-12-04","exchange":"1"},
         )
+        # print_json(response)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        # wrong password in login
-        response = self.client.post(
-            f"{BASE_URL}login/",
-            {"username": "1234567890", "password": "mypass1235"},
-            format="json",
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-
-
-        # inactive username in login
-        response = self.client.post(
-            f"{BASE_URL}login/",
-            {"username": "1234567890", "password": "mypass1234"},
-            format="json",
-        )
-
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.json()['message'], 'Verification is pending.')
-   
+        for item in [
+            {'password':'wrongpassword','response':{'non_field_errors': ['Unable to log in with provided credentials.']}}, # wrong password
+            {'password':'mypass1234','response':{'is_active': False, 'message': 'Verification is pending.'}}, # correct password, but user is inactive
+        ]:
+            response = self.client.post(
+                f"{BASE_URL}login/",
+                {"username": "KKDE005", "password": item['password']},
+            )
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            self.assertEqual(response.json(), item['response'])
+        
 
 
 
@@ -228,12 +221,12 @@ class UserDetailsTest(APITestCase):
         # login and check userdetails api
         response = self.client.post(
             f"{BASE_URL}login/",
-            {"username": "8921513696", "password": "sumee1910"},
+            {"username": "KKDE002", "password": "sumee1910"},
         )
         
         token = response.json()["key"]
         response = self.client.get(
-            f"{BASE_URL}user/{User.objects.get(username="8921513696").id}/",
+            f"{BASE_URL}user/{User.objects.get(username="KKDE002").id}/",
             headers={"Authorization": f"Token {token}"},
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)

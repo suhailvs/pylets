@@ -26,7 +26,7 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = (
             "exchange",
-            "username",
+            "phone",
             "first_name",
             "email",
             "government_id",
