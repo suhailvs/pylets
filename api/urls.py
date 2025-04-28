@@ -10,7 +10,7 @@ router.register('listings', views.ListingModelViewSet, basename='listing-api')
 
 urlpatterns = [    
     path('', include(router.urls)),
-    path('user/balance/',views.GetUserBalance.as_view()),
+    path('ajax/',views.AjaxView.as_view()),
     path('users/',views.GetUsers.as_view()),
     path('user/<int:id>/', views.UserProfileView.as_view(), name='user-profile'),
     path('transactions/',views.Transactions.as_view()),

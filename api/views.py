@@ -1,3 +1,4 @@
+
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets  # import ModelViewSet
 from rest_framework import status
@@ -8,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.serializers import ValidationError
-from coinapp.models import Listing,UserVerification
-
+from coinapp.models import Listing,UserVerification,Exchange
+from coinapp.misc import CATEGORIES
 from .serializers import (
     ListingCreateSerializer,
     ListingDetailSerializer,
@@ -21,8 +22,6 @@ from .serializers import (
 from .utils import get_transaction_queryset, save_transaction, UsernameRateThrottle
 
 User = get_user_model()
-
-
 
 class CustomAuthToken(ObtainAuthToken):
     throttle_classes = [UsernameRateThrottle]
@@ -55,11 +54,21 @@ class CreateUserView(CreateAPIView):
     serializer_class = UserCreateSerializer
 
 
-class GetUserBalance(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, format=None):
-        return Response(request.user.balance)
+class AjaxView(APIView):
+    def get(self, request,format=None):
+        purpose = request.GET.get("purpose")
+        resp = {"status":'success',"data":""}
+        if purpose == "stackcoinai":
+            # resp = github_models_api(request.GET.get("details"))
+            resp['data'] = purpose
+        elif purpose == 'userbalance':
+            if request.user.is_authenticated:
+                resp['data'] = request.user.balance
+        elif purpose == 'categories':            
+            resp['data'] = CATEGORIES
+        elif purpose == 'exchanges':
+            resp['data'] = [(e.id,f'{e.name}\n{e.get_country_and_subdivision()},{e.postal_code}') for e in Exchange.objects.all()]
+        return Response(resp)
 
 
 class GetUsers(APIView):

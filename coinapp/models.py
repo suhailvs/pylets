@@ -1,3 +1,4 @@
+import pycountry
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django_resized import ResizedImageField
@@ -39,6 +40,16 @@ class Exchange(models.Model):
 
     def __str__(self):
         return f"{self.code}({self.name})"
+
+    def get_country_and_subdivision(self):
+        try:
+            subdivision = pycountry.subdivisions.get(code=self.country_city)
+            if subdivision:
+                country = pycountry.countries.get(alpha_2=subdivision.country_code)
+                return f'{subdivision.name},{country.name}'
+        except Exception as e:
+            print(f"Error: {e}")
+        return self.country_city
 
 
 class Listing(models.Model):

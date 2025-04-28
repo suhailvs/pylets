@@ -92,9 +92,9 @@ class TransactionTest(APITestCase):
 
         # check sulaiman has 10$ balance
         response = self.client.get(
-            f"{BASE_URL}user/balance/", headers={"Authorization": f"Token {token}"}
+            f"{BASE_URL}ajax/?purpose=userbalance", headers={"Authorization": f"Token {token}"}
         )
-        self.assertEqual(response.json(), -10)
+        self.assertEqual(response.json()['data'], -10)
 
         # login as nusra. check she has -10$ balance
         response = self.client.post(
@@ -105,10 +105,10 @@ class TransactionTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()["username"], "8921513696")
         response = self.client.get(
-            f"{BASE_URL}user/balance/",
+            f"{BASE_URL}ajax/?purpose=userbalance",
             headers={"Authorization": f"Token {response.json()['key']}"},
         )
-        self.assertEqual(response.json(), 10)
+        self.assertEqual(response.json()['data'], 10)
     
 
     def test_buyer_transaction(self):
