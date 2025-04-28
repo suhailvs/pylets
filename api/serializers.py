@@ -3,6 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions as django_exceptions
 from coinapp.models import Listing, Transaction, Exchange
+from .fields import HyperlinkedSorlImageField
 
 User = get_user_model()
 
@@ -57,7 +58,14 @@ class ListingDetailSerializer(serializers.ModelSerializer):
 class ListingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
-        fields = ("id", "category", "title", "image",'rate')
+        fields = ("id", "category", "title", "image",'rate','thumbnail')
+    # https://github.com/dessibelle/sorl-thumbnail-serializer-field/tree/master#example-usage
+    thumbnail = HyperlinkedSorlImageField(
+        '128x128',
+        options={"crop": "center"},
+        source='image',
+        read_only=True
+    )
 
 
 class ListingCreateSerializer(serializers.ModelSerializer):

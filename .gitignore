@@ -1,3 +1,6 @@
+# sorl.thumbnail.kvstores.dbm_kvstore.KVStore
+thumbnail_kvstore
+thumbnail_kvstore.lock
 .vscode/
 mysite/media/
 mysite/static/
