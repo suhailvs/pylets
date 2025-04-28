@@ -21,6 +21,7 @@ class User(AbstractUser):
     exchange = models.ForeignKey(
         "Exchange", on_delete=models.SET_NULL, null=True, related_name="users"
     )
+    # phone = models.CharField(max_length=50, blank=False)
     government_id = models.CharField(max_length=50, blank=True)
     date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)

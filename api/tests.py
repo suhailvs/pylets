@@ -8,6 +8,7 @@ from rest_framework.test import APITestCase
 User = get_user_model()
 BASE_URL = "/api/v1/"
 
+print_json = lambda r: print(r.json())
 
 class VerifyUserTest(APITestCase):
     fixtures = [
@@ -216,3 +217,25 @@ class RegistrationTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['message'], 'Verification is pending.')
    
+
+
+
+class RegistrationTest(APITestCase):
+    fixtures = [
+        "datas.json",
+    ]
+    def test_user_details(self):
+        # login and check userdetails api
+        response = self.client.post(
+            f"{BASE_URL}login/",
+            {"username": "8921513696", "password": "sumee1910"},
+        )
+        
+        token = response.json()["key"]
+        response = self.client.get(
+            f"{BASE_URL}user/{User.objects.get(username="8921513696").id}/",
+            headers={"Authorization": f"Token {token}"},
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+

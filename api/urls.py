@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('user/balance/',views.GetUserBalance.as_view()),
     path('users/',views.GetUsers.as_view()),
+    path('user/<int:id>/', views.UserProfileView.as_view(), name='user-profile'),
     path('transactions/',views.Transactions.as_view()),
     path('login/', views.CustomAuthToken.as_view()),
     path('registration/', views.CreateUserView.as_view()),
