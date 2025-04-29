@@ -103,7 +103,7 @@ class ListingCreateSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    is_received = serializers.BooleanField(default=False)
+    is_received = serializers.ReadOnlyField(default=False)
     seller_name = serializers.ReadOnlyField(source="seller.first_name")
     buyer_name = serializers.ReadOnlyField(source="buyer.first_name")
 

@@ -77,7 +77,7 @@ class Transaction(models.Model):
     listing = models.ForeignKey(
         Listing, on_delete=models.SET_NULL, null=True, related_name="transactions"
     )
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True)
     amount = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
 
     # my apps
-    "coinapp",
+    "coinapp.apps.CoinappConfig", # for signals to work 
     "api",
 
     # to remove

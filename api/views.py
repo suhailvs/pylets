@@ -124,6 +124,15 @@ class Transactions(APIView):
         qs = get_transaction_queryset(user)
         serializer = TransactionSerializer(qs, many=True)  # Serialize orders
         return Response(serializer.data)
+    
+    def brodcast(self, data):
+        import requests
+        PEERS = ['http://localhost:8001']
+        for peer in PEERS:
+            try:
+                requests.post(f"{peer}/api/v1/peer/receive/", json={'data':data,'table':'transaction'})
+            except Exception as e:
+                print(f"Failed to broadcast to {peer}: {e}")    
 
     def post(self, request):
         transaction_type = "buyer"  # request.data["transaction_type"] # buyer or seller
@@ -135,6 +144,7 @@ class Transactions(APIView):
         response_data = save_transaction(transaction_type, amt, desc, seller, buyer)
         if response_data["success"]:            
             serializer = TransactionSerializer(response_data["txn_obj"])
+            self.brodcast(serializer.data)
             return Response(serializer.data)
         return Response(response_data["msg"], status=status.HTTP_400_BAD_REQUEST)
 
@@ -173,3 +183,17 @@ class VerifyUserView(APIView):
         )
         self.activate_user(verification.candidate)
         return Response({"message": "Verification successful."})
+
+
+class PeerReceiveView(APIView):
+    def post(self, request):
+        print('check and save to database:',request.data)
+        if request.data['table'] == 'transaction':
+            serializer = TransactionSerializer(data=request.data['data'])
+        if serializer.is_valid():
+            serializer.save()
+            print('serializer.data:',serializer.data)
+            return Response({"data":serializer.data})
+        print('serializer.errors:',serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

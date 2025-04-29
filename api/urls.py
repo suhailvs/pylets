@@ -17,4 +17,7 @@ urlpatterns = [
     path('login/', views.CustomAuthToken.as_view()),
     path('registration/', views.CreateUserView.as_view()),
     path('verifyuser/', views.VerifyUserView.as_view(), name='verify-user'),
+
+    # peer to peer
+    path('peer/receive/',views.PeerReceiveView.as_view()),
 ]
