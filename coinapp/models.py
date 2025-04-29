@@ -1,4 +1,4 @@
-import pycountry
+import pycountry, hashlib
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
@@ -15,11 +15,9 @@ class Block(models.Model):
     previous_hash = models.CharField(max_length=64)
     hash = models.CharField(max_length=64)
 
-    def compute_hash(self):
-        from hashlib import sha256        
+    def compute_hash(self):     
         value = f"{self.index}{self.timestamp}{self.model}{self.object_id}{self.operation}{self.previous_hash}" # skipped self.data
-        print('hasing:',value)
-        return sha256(value.encode()).hexdigest()
+        return hashlib.sha256(value.encode()).hexdigest()
     
     def is_valid_chain(self):
         for i in range(1, Block.objects.count()):

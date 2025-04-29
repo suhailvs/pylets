@@ -1,3 +1,4 @@
+import requests
 from django.db.models import BooleanField, Case, F, Q, When
 from django.db import transaction
 from django.conf import settings
@@ -66,7 +67,16 @@ def save_transaction(transaction_type, amt, desc, seller, buyer):
         return resp(True, "", txn)
     return resp(False, "Transaction Failed")
 
-
+def broadcast(table, data):    
+    PEERS = ['http://localhost:8001']
+    last_block = Block.objects.last()
+    data = {'data':data,'table':table,'block_time':f'{last_block.timestamp}','previous_block_hash':last_block.previous_hash}
+    for peer in PEERS:        
+        try:            
+            requests.post(f"{peer}/api/v1/peer/receive/", json=data, timeout=1)
+        except Exception as e:
+            print(f"Failed to broadcast to {peer}: {e}")
+            
 def create_block(data,model_name, block_time=None,operation="CREATE"):        
     previous = Block.objects.last()
     block = Block.objects.create(

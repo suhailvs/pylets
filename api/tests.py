@@ -1,10 +1,10 @@
+from unittest.mock import patch
 from django.contrib.auth import get_user_model
-from django.urls import reverse
 from django.conf import settings
 
 from rest_framework import status
 from rest_framework.test import APITestCase
-from coinapp.models import Block
+
 User = get_user_model()
 BASE_URL = "/api/v1/"
 
@@ -60,6 +60,7 @@ class VerifyUserTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['username'], "KKDE005")
 
+
 class TransactionTest(APITestCase):
     fixtures = [
         "datas.json",
@@ -67,8 +68,10 @@ class TransactionTest(APITestCase):
     def setUp(self):
         self.user_nusra = User.objects.get(username="KKDE002")
         self.user_sulaiman = User.objects.get(username="KKDE003")
-        
-    def test_login_and_make_transaction(self):
+    
+    @patch("api.utils.requests.post") 
+    def test_login_and_make_transaction(self, mock_get):
+        mock_get.return_value.json.return_value = {"status": "mocked"}
         # login as sulaiman and make a seller transaction of 10$ -> nusra
         response = self.client.post(
             f"{BASE_URL}login/",
@@ -89,7 +92,6 @@ class TransactionTest(APITestCase):
             format="json",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print('test_peer_to_peer',Block.objects.all().first().data)
         # check sulaiman has 10$ balance
         response = self.client.get(
             f"{BASE_URL}ajax/?purpose=userbalance", headers={"Authorization": f"Token {token}"}

@@ -19,7 +19,7 @@ from .serializers import (
     UserSerializer,
     UserCreateSerializer,
 )
-from .utils import get_transaction_queryset, save_transaction, UsernameRateThrottle, create_block
+from .utils import get_transaction_queryset, save_transaction, UsernameRateThrottle, create_block, broadcast
 
 User = get_user_model()
 
@@ -125,18 +125,6 @@ class Transactions(APIView):
         serializer = TransactionSerializer(qs, many=True)  # Serialize orders
         return Response(serializer.data)
     
-    
-
-    def broadcast(self, data):
-        import requests
-        PEERS = ['http://localhost:8001']
-        for peer in PEERS:
-            try:
-                last_block = Block.objects.last()
-                requests.post(f"{peer}/api/v1/peer/receive/", 
-                    json={'data':data,'table':'transaction','block_time':f'{last_block.timestamp}','previous_block_hash':last_block.previous_hash}, timeout=1)
-            except Exception as e:
-                print(f"Failed to broadcast to {peer}: {e}")    
 
     def post(self, request):
         transaction_type = "buyer"  # request.data["transaction_type"] # buyer or seller
@@ -149,7 +137,7 @@ class Transactions(APIView):
         if response_data["success"]:            
             serializer = TransactionSerializer(response_data["txn_obj"])
             create_block(serializer.data,'transaction')
-            self.broadcast(serializer.data)
+            broadcast('transaction',serializer.data)
             return Response(serializer.data)
         return Response(response_data["msg"], status=status.HTTP_400_BAD_REQUEST)
 
