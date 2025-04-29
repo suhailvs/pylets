@@ -226,7 +226,7 @@ class UserDetailsTest(APITestCase):
         
         token = response.json()["key"]
         response = self.client.get(
-            f"{BASE_URL}user/{User.objects.get(username="KKDE002").id}/",
+            f'{BASE_URL}user/{User.objects.get(username="KKDE002").id}/',
             headers={"Authorization": f"Token {token}"},
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
