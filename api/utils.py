@@ -1,7 +1,7 @@
 from django.db.models import BooleanField, Case, F, Q, When
 from django.db import transaction
 from django.conf import settings
-from coinapp.models import Transaction
+from coinapp.models import Transaction, Block
 
 from rest_framework.throttling import SimpleRateThrottle
 
@@ -65,3 +65,18 @@ def save_transaction(transaction_type, amt, desc, seller, buyer):
         )
         return resp(True, "", txn)
     return resp(False, "Transaction Failed")
+
+
+def create_block(data,model_name, block_time=None,operation="CREATE"):        
+    previous = Block.objects.last()
+    block = Block.objects.create(
+        index=(previous.index + 1) if previous else 0,
+        model=model_name,
+        object_id=data['id'],
+        operation=operation,
+        data=data,
+        previous_hash=previous.hash if previous else "0",
+    )
+    if block_time: block.timestamp=block_time
+    block.hash = block.compute_hash()
+    block.save()

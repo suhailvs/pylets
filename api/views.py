@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.serializers import ValidationError
-from coinapp.models import Listing,UserVerification,Exchange
+from coinapp.models import Listing,UserVerification,Exchange, Block
 from coinapp.misc import CATEGORIES
 from .serializers import (
     ListingCreateSerializer,
@@ -19,7 +19,7 @@ from .serializers import (
     UserSerializer,
     UserCreateSerializer,
 )
-from .utils import get_transaction_queryset, save_transaction, UsernameRateThrottle
+from .utils import get_transaction_queryset, save_transaction, UsernameRateThrottle, create_block
 
 User = get_user_model()
 
@@ -125,12 +125,16 @@ class Transactions(APIView):
         serializer = TransactionSerializer(qs, many=True)  # Serialize orders
         return Response(serializer.data)
     
-    def brodcast(self, data):
+    
+
+    def broadcast(self, data):
         import requests
         PEERS = ['http://localhost:8001']
         for peer in PEERS:
             try:
-                requests.post(f"{peer}/api/v1/peer/receive/", json={'data':data,'table':'transaction'})
+                last_block = Block.objects.last()
+                requests.post(f"{peer}/api/v1/peer/receive/", 
+                    json={'data':data,'table':'transaction','block_time':f'{last_block.timestamp}','previous_block_hash':last_block.previous_hash}, timeout=1)
             except Exception as e:
                 print(f"Failed to broadcast to {peer}: {e}")    
 
@@ -144,7 +148,8 @@ class Transactions(APIView):
         response_data = save_transaction(transaction_type, amt, desc, seller, buyer)
         if response_data["success"]:            
             serializer = TransactionSerializer(response_data["txn_obj"])
-            self.brodcast(serializer.data)
+            create_block(serializer.data,'transaction')
+            self.broadcast(serializer.data)
             return Response(serializer.data)
         return Response(response_data["msg"], status=status.HTTP_400_BAD_REQUEST)
 
@@ -187,11 +192,15 @@ class VerifyUserView(APIView):
 
 class PeerReceiveView(APIView):
     def post(self, request):
+        last_block = Block.objects.last()
+        if last_block and (request.data['previous_block_hash'] != last_block.hash):
+            return Response({"msg":"Your last block mismatch"}, status=status.HTTP_400_BAD_REQUEST)
         print('check and save to database:',request.data)
         if request.data['table'] == 'transaction':
             serializer = TransactionSerializer(data=request.data['data'])
         if serializer.is_valid():
             serializer.save()
+            create_block(serializer.data,'transaction',block_time=request.data['block_time'])
             print('serializer.data:',serializer.data)
             return Response({"data":serializer.data})
         print('serializer.errors:',serializer.errors)

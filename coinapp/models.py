@@ -1,9 +1,38 @@
 import pycountry
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from . import misc
 
 
+class Block(models.Model):
+    index = models.IntegerField()
+    timestamp = models.DateTimeField(default=timezone.now)
+    model = models.CharField(max_length=100)  # e.g., 'User', 'Exchange'
+    object_id = models.PositiveIntegerField()
+    operation = models.CharField(max_length=10, choices=[('CREATE', 'CREATE'), ('UPDATE', 'UPDATE'), ('DELETE', 'DELETE')])
+    data = models.JSONField()  # serialized model data
+    previous_hash = models.CharField(max_length=64)
+    hash = models.CharField(max_length=64)
+
+    def compute_hash(self):
+        from hashlib import sha256        
+        value = f"{self.index}{self.timestamp}{self.model}{self.object_id}{self.operation}{self.previous_hash}" # skipped self.data
+        print('hasing:',value)
+        return sha256(value.encode()).hexdigest()
+    
+    def is_valid_chain(self):
+        for i in range(1, Block.objects.count()):
+            current = Block.objects.get(index=i)
+            previous = Block.objects.get(index=i-1)
+            if current.hash != current.compute_hash():
+                print(f"Invalid hash at block {i}")
+                return False
+            if current.previous_hash != previous.hash:
+                print(f"Invalid previous hash at block {i}")
+                return False
+        return True
+    
 class UserVerification(models.Model):
     verifier = models.ForeignKey("User", related_name="verifications_made", on_delete=models.CASCADE)
     candidate = models.ForeignKey("User", related_name="verifications_received", on_delete=models.CASCADE)
@@ -79,7 +108,7 @@ class Transaction(models.Model):
     )
     description = models.CharField(max_length=255, blank=True)
     amount = models.PositiveIntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now) #auto_now_add=True)
 
     def __str__(self):
         return f"{self.buyer} -> {self.seller}: {self.amount}"

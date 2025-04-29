@@ -4,7 +4,7 @@ from django.conf import settings
 
 from rest_framework import status
 from rest_framework.test import APITestCase
-
+from coinapp.models import Block
 User = get_user_model()
 BASE_URL = "/api/v1/"
 
@@ -89,7 +89,7 @@ class TransactionTest(APITestCase):
             format="json",
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
+        print('test_peer_to_peer',Block.objects.all().first().data)
         # check sulaiman has 10$ balance
         response = self.client.get(
             f"{BASE_URL}ajax/?purpose=userbalance", headers={"Authorization": f"Token {token}"}
