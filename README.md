@@ -4,10 +4,11 @@ Local Exchange Trading System Backend
 
 ## Run it locally
 
-Clone the repo, then run the bash script:
+Run the following in your terminal:
 ```
-
-./mybash.sh install
+wget https://raw.githubusercontent.com/suhailvs/pylets/refs/heads/peer2peer/pylets.sh
+bash pylets.sh install
+bash pylets.sh refreshdb
 visit <http://localhost:8000/>
 ```
 
@@ -15,8 +16,7 @@ visit <http://localhost:8000/>
 
 #### Unittest
 
-to run unittest the project run:
-
+to run unittests:
 ```
 ./manage.py test
 ```
@@ -24,13 +24,10 @@ to run unittest the project run:
 #### Functional Tests 
 
 to run functional tests for Peer2Peer using pytest
-
-+ clone repo in 2 folder, and run `./mybash.sh install`
-+ now an env folder will be created. activate it `source env/bin/activate`
-+ run `./manage.py runserver 0:8000` on a folder and `./manage.py runserver 8001` on another folder.
++ `wget https://raw.githubusercontent.com/suhailvs/pylets/refs/heads/peer2peer/pylets.sh`
++ clone 2 nodes, `bash pylets.sh install node1` and `bash pylets.sh install node2`
++ initiate the db and runserver, `bash pylets.sh refreshdb 8001`
 + run pytest `pytest`
-+ if you want to reset the db, run `./mybash.sh refreshdb 8001`
-
 
 ## Hosting
 

@@ -12,15 +12,22 @@ function initdb() {
 
 
 if [[ ${1} == ${install} ]]
-then 
+then
+ git clone https://github.com/suhailvs/pylets.git $2
+ if [[ -z ${2} ]]
+ then
+  cd pylets
+ else
+  cd $2
+ fi
+ git switch peer2peer 
  python3 -m venv env
  source env/bin/activate
  cp .env.example .env
- pip install -r requirements.txt
- initdb
- python manage.py runserver
+ pip install -r requirements.txt 
 elif [[ ${1} == ${refreshdb} ]]
 then
+ source env/bin/activate
  initdb
  python manage.py runserver $2
 else
