@@ -1,14 +1,16 @@
 # LETS Backend
+[![Django CI](https://github.com/suhailvs/pylets/actions/workflows/django.yml/badge.svg)](https://github.com/suhailvs/pylets/actions/workflows/django.yml)
+[![Python Version](https://img.shields.io/badge/python-3.12-brightgreen.svg)](https://python.org)
+[![Django Version](https://img.shields.io/badge/django-5.1-brightgreen.svg)](https://djangoproject.com)
+[![Django Rest Framework Version](https://img.shields.io/badge/django--rest--framework-3.15.2-brightgreen.svg)](https://www.django-rest-framework.org/)
 
-Local Exchange Trading System Backend
+Local Exchange Trading System
 
 ## Run it locally
 
 Run the following in your terminal:
 ```
-wget https://raw.githubusercontent.com/suhailvs/pylets/refs/heads/main/pylets.sh
-bash pylets.sh install
-bash pylets.sh refreshdb
+curl -s https://raw.githubusercontent.com/suhailvs/pylets/main/pylets.sh | bash
 ```
 visit: http://localhost:8000/
 
