@@ -67,13 +67,13 @@ def save_transaction(transaction_type, amt, desc, seller, buyer):
         return resp(True, "", txn)
     return resp(False, "Transaction Failed")
 
-def broadcast(table, data):    
-    PEERS = ['http://localhost:8001']
+def broadcast(table, data, peers):
     last_block = Block.objects.last()
     data = {'data':data,'table':table,'block_time':f'{last_block.timestamp}','previous_block_hash':last_block.previous_hash}
-    for peer in PEERS:        
+    for peer in peers:        
         try:            
-            requests.post(f"{peer}/api/v1/peer/receive/", json=data, timeout=1)
+            response = requests.post(f"{peer}/api/v1/peer/receive/", json=data, timeout=1)
+            print(response.json())
         except Exception as e:
             print(f"Failed to broadcast to {peer}: {e}")
             

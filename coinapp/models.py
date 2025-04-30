@@ -31,6 +31,8 @@ class Block(models.Model):
                 return False
         return True
     
+    def __str__(self):
+        return f"{self.index}: {self.hash}"
 class UserVerification(models.Model):
     verifier = models.ForeignKey("User", related_name="verifications_made", on_delete=models.CASCADE)
     candidate = models.ForeignKey("User", related_name="verifications_received", on_delete=models.CASCADE)

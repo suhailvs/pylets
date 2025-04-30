@@ -137,7 +137,9 @@ class Transactions(APIView):
         if response_data["success"]:            
             serializer = TransactionSerializer(response_data["txn_obj"])
             create_block(serializer.data,'transaction')
-            broadcast('transaction',serializer.data)
+            PEERS = [f'http://localhost:{i}' for i in ['8000','8001'] if i not in request.build_absolute_uri()] 
+            print(PEERS)
+            broadcast('transaction',serializer.data, PEERS)
             return Response(serializer.data)
         return Response(response_data["msg"], status=status.HTTP_400_BAD_REQUEST)
 
