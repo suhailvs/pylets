@@ -19,7 +19,21 @@ class VerifyUserTest(APITestCase):
     ]
     def setUp(self):
         self.user_sulaiman = User.objects.get(username="KKDE003")
-        
+        self.users = {
+            "KKDE001":Token.objects.get_or_create(user_id=1)[0], # same exchange
+            "PIXL001":Token.objects.get_or_create(user_id=4)[0], # diferent exchange
+        }
+    def verify_sufail(self, token,trust_score):
+        user_sufail = User.objects.get(username="KKDE005") 
+        response = self.client.post(f"{BASE_URL}verifyuser/",{"candidate_id": user_sufail.id, "trust_score":trust_score},
+            headers={"Authorization": f"Token {token}"},
+        )
+        if token == self.users['PIXL001']: # if sabareesh
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        else:
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+        return response
+
     def test_create_and_verify_user(self):
         # new user registration
         response = self.client.post(
@@ -31,37 +45,36 @@ class VerifyUserTest(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         user_sufail = User.objects.get(username="KKDE005") 
-        # login as sulaiman and verify sufail without trust_score
-        response = self.client.post(
-            f"{BASE_URL}login/",
-            {"username": self.user_sulaiman.username, "password": "sumee1910"},
-        )
-        token = response.json()["key"]
-        response = self.client.post(f"{BASE_URL}verifyuser/",{"candidate_id": user_sufail.id},
-            headers={"Authorization": f"Token {token}"},
-        )
-
+        
+        # using suhail's token, verify newuser(sufail) with low trust_score
+        response = self.verify_sufail(self.users['KKDE001'],0.3)
+        # sufail verification failed since low trust_score
         user_sufail.refresh_from_db()
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(user_sufail.is_active, False)
+
         # try to login sufail(not verified)
         response = self.client.post(f"{BASE_URL}login/",{"username": "KKDE005", "password": "dummypassword"})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(response.json()['is_active'], False)
         self.assertEqual(response.json()['message'], 'Verification is pending.')
 
-        # verify sufail with high trust_score
-        response = self.client.post(f"{BASE_URL}verifyuser/",{"candidate_id": user_sufail.id, "trust_score":"0.8"},
-            headers={"Authorization": f"Token {token}"},
-        )
+        # using sabareesh's token, verify newuser(sufail) with high trust_score
+        response = self.verify_sufail(self.users['PIXL001'],0.9)
+        # sufail verification failed since sabareesh's exchange is different from sufail's
         user_sufail.refresh_from_db()
+        self.assertEqual(user_sufail.is_active, False)
+
+        # verify sufail with high trust_score
+        response = self.verify_sufail(self.users['KKDE001'],0.9)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        user_sufail.refresh_from_db()
         self.assertEqual(user_sufail.is_active, True)
 
         # try to login sufail(verified)
         response = self.client.post(f"{BASE_URL}login/",{"username": "KKDE005", "password": "dummypassword"})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.json()['username'], "KKDE005")
+
 
 class TransactionTest(APITestCase):
     fixtures = [

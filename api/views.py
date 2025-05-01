@@ -167,18 +167,21 @@ class VerifyUserView(APIView):
     
     def post(self, request):
         if not request.user.is_active:
-            return Response({"detail": "Your Account is not active."}, status=400)
-        verifier_id = request.user.id
-        candidate_id = request.data["candidate_id"]
+            return Response({"detail": "Your Account is not active."}, status=status.HTTP_400_BAD_REQUEST)
+        candidate = User.objects.get(id=request.data["candidate_id"])
+        if request.user.exchange != candidate.exchange:
+            return Response({"error": f"You can only verify users on exchagne {request.user.exchange}."}, status=status.HTTP_400_BAD_REQUEST)
+        # verifier_id = request.user.id
+        # candidate_id = request.data["candidate_id"]
         trust_score = float(request.data.get("trust_score", 0.1))
 
-        if verifier_id == int(candidate_id):
+        if request.user == candidate:
             return Response({"error": "You cannot verify yourself."}, status=status.HTTP_400_BAD_REQUEST)
 
         verification, created = UserVerification.objects.update_or_create(
-            verifier_id=verifier_id,
-            candidate_id=candidate_id,
+            verifier=request.user,
+            candidate=candidate,
             defaults={"trust_score": trust_score,}
         )
-        self.activate_user(verification.candidate)
+        self.activate_user(candidate)
         return Response({"message": "Verification successful."})
