@@ -14,7 +14,7 @@ class UserVerification(models.Model):
         unique_together = ("verifier", "candidate")  # can't verify same user twice
 
     def __str__(self):
-        return f"{self.verifier.username} -> {self.candidate.username}"
+        return f"{self.id}: {self.verifier.username} -> {self.candidate.username}"
     
 
 class User(AbstractUser):
@@ -25,6 +25,12 @@ class User(AbstractUser):
     government_id = models.CharField(max_length=50, blank=True)
     date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)
+
+    @property
+    def balance_from_txns(self):
+        credited = Transaction.objects.filter(seller=self).aggregate(t=models.Sum('amount'))['t'] or 0
+        debited = Transaction.objects.filter(buyer=self).aggregate(t=models.Sum('amount'))['t'] or 0
+        return credited - debited
 
 
 class Exchange(models.Model):
@@ -38,7 +44,7 @@ class Exchange(models.Model):
     # )
 
     def __str__(self):
-        return f"{self.code}({self.name})"
+        return f"{self.id}: {self.code}({self.name})"
 
     def get_country_and_subdivision(self):
         try:
@@ -64,7 +70,7 @@ class Listing(models.Model):
     image = models.ImageField(upload_to='offering/%Y/%m/%d/', null=True, blank=True)
     # ResizedImageField(size=[500, 300],quality=25,upload_to="offering/%Y/%m/%d/",null=True,blank=True,)
     def __str__(self):
-        return f"{self.title}({self.description[:30]}...)"
+        return f"{self.id}: {self.title}({self.description[:30]}...)"
 
 
 class Transaction(models.Model):
@@ -82,7 +88,7 @@ class Transaction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.buyer} -> {self.seller}: {self.amount}"
+        return f"{self.id}: {self.buyer} -> {self.seller}: {self.amount}"
 
 
 # site specific
@@ -91,4 +97,4 @@ class GeneralSettings(models.Model):
     value = models.CharField(max_length=250)
 
     def __str__(self) -> str:
-        return f"{self.key}:{self.value}"
+        return f"{self.id}: {self.key}:{self.value}"
