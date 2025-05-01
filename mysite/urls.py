@@ -6,7 +6,7 @@ urlpatterns = [
     path("api/v1/", include("api.urls")),    
 ]
 
-if settings.DEBUG:
+if True: #settings.DEBUG
     from django.contrib import admin
     from django.conf.urls.static import static
     from frontendapp.views import SignUpJoinView, SignUpNewView
