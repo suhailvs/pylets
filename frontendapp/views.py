@@ -58,10 +58,8 @@ class SignUpNewView(CreateView):
         exchange_form = ctx["exchange_form"]
         if exchange_form.is_valid() and form.is_valid():
             with transaction.atomic():
-                user_obj = form.save()
                 exchange_obj = exchange_form.save()
-                user_obj.exchange = exchange_obj
-                user_obj.save()
+                user_obj = form.save(exchange_obj=exchange_obj)
                 login(self.request, user_obj)
                 return redirect(reverse_lazy("frontendapp:home"))
         else:

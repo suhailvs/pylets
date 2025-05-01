@@ -8,6 +8,13 @@ from .fields import HyperlinkedSorlImageField
 
 User = get_user_model()
 
+def generate_username(exchange_code):
+    latest_user = User.objects.filter(username__startswith=exchange_code).order_by('-username').first()
+    number = 1
+    if latest_user:        
+        match = re.search(r'(\d+)$', latest_user.username) # Extract the numeric part
+        if match: number = int(match.group(1)) + 1
+    return f'{exchange_code}{number:03}' # 3-digit number with leading zeros
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -33,20 +40,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['username']
 
-    def generate_username(self, exchange):
-        PREFIX = exchange.code
-        latest_user = User.objects.filter(username__startswith=PREFIX).order_by('-username').first()
-        if latest_user:
-            # Extract the numeric part
-            match = re.search(r'(\d+)$', latest_user.username)
-            if match:
-                number = int(match.group(1)) + 1
-            else:
-                number = 1
-        else:
-            number = 1
-
-        return f"{PREFIX}{str(number).zfill(3)}"  # 3-digit number with leading zeros
+    
 
     def validate(self, attrs):       
         user = User(**attrs)
@@ -60,7 +54,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        validated_data['username'] = self.generate_username(validated_data['exchange'])
+        validated_data['username'] = generate_username(validated_data['exchange'].code)
         user = User.objects.create_user(**validated_data)
         user.is_active = False
         user.save()

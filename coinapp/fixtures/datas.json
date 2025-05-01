@@ -17,7 +17,7 @@
         "exchange": 1,
         "government_id": "",
         "date_of_birth": "1988-12-04",
-        "balance": -40,
+        "balance": 0,
         "groups": [],
         "user_permissions": []
     }
@@ -161,6 +161,29 @@
     }
 },
 {
+    "model": "coinapp.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$2eA51hkNIS7qAdrqGy1w7o$N0DVZq4aaDhY80V0RF5LSb+/Hqu2DRKILkI8FCTjIWA=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "PIXL004",
+        "first_name": "suhail pixl",
+        "last_name": "",
+        "email": "suhail@pixl.ai",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-05-01T01:04:36.968Z",
+        "exchange": 2,
+        "phone": "9000000000",
+        "government_id": "",
+        "date_of_birth": "1988-12-04",
+        "balance": -30,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "coinapp.exchange",
     "pk": 1,
     "fields": {
@@ -201,7 +224,7 @@
     "pk": 1,
     "fields": {
         "seller": 4,
-        "buyer": 1,
+        "buyer": 8,
         "listing": null,
         "description": "Badminton Court - Amigos Oct 29",
         "amount": 70,
@@ -213,7 +236,7 @@
     "pk": 2,
     "fields": {
         "seller": 4,
-        "buyer": 1,
+        "buyer": 8,
         "listing": null,
         "description": "Chumma tha",
         "amount": 100,
@@ -224,7 +247,7 @@
     "model": "coinapp.transaction",
     "pk": 3,
     "fields": {
-        "seller": 1,
+        "seller": 8,
         "buyer": 4,
         "listing": null,
         "description": "Return 100rs due to dummy previous payment ",
@@ -236,7 +259,7 @@
     "model": "coinapp.transaction",
     "pk": 4,
     "fields": {
-        "seller": 1,
+        "seller": 8,
         "buyer": 5,
         "listing": null,
         "description": "Sandwich ",

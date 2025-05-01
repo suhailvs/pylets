@@ -15,7 +15,7 @@ class CreateExchangeTest(TestCase):
 
     def test_createexchange(self):
         data = {"code":"KKED", "name":"Kolakkode Exchange", "address":"aa", "dummy_country_dropdown":"IN","country_city":"IN-KL",
-            "username": '7238233233',"password1": "dummypassword","password2":"dummypassword","email":"suhail@gmail.com", 
+            "phone": '7238233233',"password1": "dummypassword","password2":"dummypassword","email":"suhail@gmail.com", 
             "government_id":"123123","date_of_birth":"1988-12-04","tandc":True}
         response = self.client.post(self.url,data,follow=True)
         # check on dummy_country_dropdown dropdown, India is selected
@@ -32,7 +32,7 @@ class CreateExchangeTest(TestCase):
         response = self.client.post(self.url,data,follow=True)
         # check user logged in
         self.assertInHTML(
-            f'<a href="{reverse("frontendapp:user_detail", args=("KKED","1"))}"><strong>7238233233</strong> </a>', 
+            f'<a href="{reverse("frontendapp:user_detail", args=("KKED","1"))}"><strong>KKED001</strong> </a>', 
             response.content.decode()
         )
 

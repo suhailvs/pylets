@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.forms.utils import ValidationError
 from coinapp.models import Exchange, Listing
-
+from api.serializers import generate_username
 User = get_user_model()
 
 
@@ -21,7 +21,17 @@ class SignUpForm(UserCreationForm):
                 raise ValidationError({'government_id': 'This Government ID must be unique.'})
         return govt_id
     
-        
+    def save(self, commit=True, exchange_obj=None):
+        user = super().save(commit=commit)
+        if exchange_obj:
+            # new exchange
+            user.username = generate_username(exchange_obj.code)
+            user.exchange = exchange_obj
+        else:
+            user.username = generate_username(user.exchange.code) 
+        user.save()
+        return user
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = (
