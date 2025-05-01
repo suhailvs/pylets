@@ -7,7 +7,7 @@ from . import misc
 class UserVerification(models.Model):
     verifier = models.ForeignKey("User", related_name="verifications_made", on_delete=models.CASCADE)
     candidate = models.ForeignKey("User", related_name="verifications_received", on_delete=models.CASCADE)
-    trust_score = models.FloatField(default=0.1)  # 0 to 1, how much verifier trusts candidate
+    # trust_score = models.FloatField(default=0.1)  # 0 to 1, how much verifier trusts candidate
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:

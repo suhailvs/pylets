@@ -55,7 +55,12 @@ class CustomAuthToken(ObtainAuthToken):
             }
         )
 
-
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        Token.objects.get(user=request.user).delete()
+        return Response({"detail": "Successfully logged out."})
+    
 class CreateUserView(CreateAPIView):
 
     model = User
@@ -152,12 +157,14 @@ class VerifyUserView(APIView):
     permission_classes = [IsAuthenticated]
 
     def is_trusted_user(self,user):
-        min_verifications = 1
-        min_trust_score = 0.7
+        # total_active_users_in_exchange = User.objects.filter(is_active=True,exchange=user.exchange).count()
+        # (total users, min_verification) -> (1, 1), (2, 2), (3, 2), (4, 3), (5, 3), (6, 4), (7, 4), (8, 5), (9, 5)
+        min_verifications = 1 # (total_active_users_in_exchange//2)+1
+        # min_trust_score = 0.7
         verifications = UserVerification.objects.filter(candidate=user)        
-        high_trust_verifications = verifications.filter(trust_score__gte=min_trust_score)
+        # high_trust_verifications = verifications.filter(trust_score__gte=min_trust_score)
         # print('verifications:',high_trust_verifications.count(), verifications.count())
-        return high_trust_verifications.count() >= min_verifications
+        return verifications.count() >= min_verifications
 
     def activate_user(self, user):        
         if not user.is_active:
@@ -170,18 +177,20 @@ class VerifyUserView(APIView):
             return Response({"detail": "Your Account is not active."}, status=status.HTTP_400_BAD_REQUEST)
         candidate = User.objects.get(id=request.data["candidate_id"])
         if request.user.exchange != candidate.exchange:
-            return Response({"error": f"You can only verify users on exchagne {request.user.exchange}."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": f"You can only verify users on exchagne {request.user.exchange}."}, status=status.HTTP_400_BAD_REQUEST)
         # verifier_id = request.user.id
         # candidate_id = request.data["candidate_id"]
-        trust_score = float(request.data.get("trust_score", 0.1))
+        # trust_score = float(request.data.get("trust_score", 0.1))
 
         if request.user == candidate:
             return Response({"error": "You cannot verify yourself."}, status=status.HTTP_400_BAD_REQUEST)
 
-        verification, created = UserVerification.objects.update_or_create(
+        _, created = UserVerification.objects.get_or_create(
             verifier=request.user,
             candidate=candidate,
-            defaults={"trust_score": trust_score,}
+            # defaults={"trust_score": trust_score,}
         )
         self.activate_user(candidate)
-        return Response({"message": "Verification successful."})
+        if created:
+            return Response({"detail": "Verification successful."}, status=status.HTTP_201_CREATED)
+        return Response({"detail": "Verification already done."}, status=status.HTTP_400_BAD_REQUEST)
