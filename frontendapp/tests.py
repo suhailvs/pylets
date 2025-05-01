@@ -165,7 +165,7 @@ class ListingTest(TestCase):
         )
 
         self.assertIn(
-            "Listing activated: test heading",
+            "Listing activated: 2: test heading",
             str(list(response.context["messages"])[0]),
         )
         self.assertEqual(
@@ -201,7 +201,7 @@ class ListingTest(TestCase):
             follow=True,
         )
         self.assertIn(
-            "Listing activated: test heading want",
+            "Listing activated: 2: test heading want",
             str(list(response.context["messages"])[0]),
         )
         self.assertEqual(
