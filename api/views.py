@@ -4,7 +4,7 @@ from rest_framework import viewsets  # import ModelViewSet
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, BasePermission, SAFE_METHODS
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
@@ -23,6 +23,15 @@ from .utils import get_transaction_queryset, save_transaction, UsernameRateThrot
 
 User = get_user_model()
 
+
+class IsOwnerOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # Object-level permission to only allow owners of an object to edit it.
+        # so we'll always allow GET, HEAD or OPTIONS requests.
+        if request.method in SAFE_METHODS:
+            return True
+        return obj.user == request.user
+    
 class CustomAuthToken(ObtainAuthToken):
     throttle_classes = [UsernameRateThrottle]
     def post(self, request, *args, **kwargs):
@@ -91,7 +100,7 @@ class UserProfileView(RetrieveAPIView):
 
         
 class ListingModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     # queryset = Listing.objects.all()
     def get_queryset(self):

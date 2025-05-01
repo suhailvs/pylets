@@ -5,6 +5,9 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from coinapp.models import Listing
+from rest_framework.authtoken.models import Token
+
 User = get_user_model()
 BASE_URL = "/api/v1/"
 
@@ -210,7 +213,36 @@ class RegistrationTest(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             self.assertEqual(response.json(), item['response'])
         
+class ListingTest(APITestCase):
+    fixtures = [
+        "datas.json",
+    ]
+    def setUp(self):
+        self.listing_id = 1
+        self.url = f"{BASE_URL}listings/{self.listing_id}/" 
+        self.listing_exists = lambda: Listing.objects.filter(id=self.listing_id).exists()
+        self.users = {
+            "KKDE001":Token.objects.get_or_create(user_id=1)[0],
+            "KKDE002":Token.objects.get_or_create(user_id=2)[0],
+        }
+    
+    def test_view_listing(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.users["KKDE002"].key)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_owner_can_delete(self):
+        self.assertTrue(self.listing_exists())
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.users["KKDE001"].key)
+        response = self.client.delete(self.url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(self.listing_exists())
+
+    def test_other_user_cannot_delete(self):
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.users["KKDE002"].key)
+        response = self.client.delete(self.url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertTrue(self.listing_exists())
 
 
 class UserDetailsTest(APITestCase):
