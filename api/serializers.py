@@ -19,10 +19,15 @@ def generate_username(exchange_code):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "first_name","last_login", "username","is_active", "balance",
-            'phone','government_id','date_of_birth','exchange']
+        fields = ["id", "first_name","last_login", "username","email","is_active", "balance",
+            'phone','government_id','date_of_birth','exchange', "image",'thumbnail']
         read_only_fields = fields
-
+    thumbnail = HyperlinkedSorlImageField(
+        '128x128',
+        options={"crop": "center"},
+        source='image',
+        read_only=True
+    )
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     
@@ -33,10 +38,11 @@ class UserCreateSerializer(serializers.ModelSerializer):
             'email',
             "phone",
             "password",
-            "government_id",
+            # "government_id",
             "date_of_birth",
             "exchange",
             'username',
+            "image",
         ]
         read_only_fields = ['username']
 

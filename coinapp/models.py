@@ -25,6 +25,7 @@ class User(AbstractUser):
     government_id = models.CharField(max_length=50, blank=True)
     date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)
+    image = models.ImageField(upload_to='users/')
 
     @property
     def balance_from_txns(self):
