@@ -13,6 +13,11 @@ BASE_URL = "/api/v1/"
 
 print_json = lambda r: print(r.json())
 
+def sample_image():
+    from django.core.files.uploadedfile import SimpleUploadedFile
+    small_img = b'\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x05\x04\x04\x00\x00\x00\x2c\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3b'
+    return SimpleUploadedFile('small.gif', small_img, content_type='image/png')
+
 class AjaxViewsTest(APITestCase):
     fixtures = [
         "datas.json",
@@ -35,9 +40,9 @@ class RegistrationTest(APITestCase):
         # create a new user
         response = self.client.post(
             f"{BASE_URL}registration/",
-            {"password": "mypass1234","phone":"9000000000","government_id":"123456","date_of_birth":"1988-12-04","exchange":"1"},
+            {"password": "mypass1234","phone":"9000000000","government_id":"123456","date_of_birth":"1988-12-04","exchange":"1","image":sample_image()},
         )
-        # print_json(response)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         for item in [
@@ -94,12 +99,13 @@ class VerifyUserTest(APITestCase):
         return response
 
     def test_create_and_verify_user(self):
+        
         # new user registration
         response = self.client.post(
             f"{BASE_URL}registration/",
             {
                 "first_name":"sufail","password": "dummypassword",'phone': 'dummyphone',
-                "government_id":"", "date_of_birth":"1991-12-21","exchange":"1",
+                "government_id":"", "date_of_birth":"1991-12-21","exchange":"1","image":sample_image(),
             },
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
