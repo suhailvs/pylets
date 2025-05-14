@@ -106,6 +106,9 @@ class ListingModelViewSet(viewsets.ModelViewSet):
                 listing_type=self.request.GET.get("type", "O"),
                 user=self.request.GET["user"],
             )
+            if int(self.request.GET["user"]) != user.id:
+                # don't show inactive lisiting
+                qs=qs.filter(is_active=True)
         return qs.order_by("-created_at")
 
     def get_serializer_class(self):

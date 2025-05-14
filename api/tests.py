@@ -181,6 +181,16 @@ class ListingTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(self.listing_active())
 
+        # user can see his inactive offerings
+        response = self.client.get(f"{BASE_URL}listings/?type=O&user=1" )
+        self.assertEqual(response.json()[0]['title'], 'rice')
+
+        # other user will not see inactive offerings
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.users["KKDE002"].key)
+        response = self.client.get(f"{BASE_URL}listings/?type=O&user=1" )
+        self.assertEqual(response.json(), [])
+
+
 class TransactionTest(APITestCase):
     fixtures = [
         "datas.json",
