@@ -69,6 +69,7 @@ class Listing(models.Model):
     listing_type = models.CharField(max_length=1, choices=LISTING_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='offering/%Y/%m/%d/', null=True, blank=True)
+    is_active = models.BooleanField(default=True)
     # ResizedImageField(size=[500, 300],quality=25,upload_to="offering/%Y/%m/%d/",null=True,blank=True,)
     def __str__(self):
         return f"{self.id}: {self.title}({self.description[:30]}...)"

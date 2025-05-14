@@ -142,6 +142,7 @@ class ListingTest(APITestCase):
         self.listing_id = 1
         self.url = f"{BASE_URL}listings/{self.listing_id}/" 
         self.listing_exists = lambda: Listing.objects.filter(id=self.listing_id).exists()
+        self.listing_active = lambda: Listing.objects.filter(id=self.listing_id,is_active=True).exists()
         self.users = {
             "KKDE001":Token.objects.get_or_create(user_id=1)[0],
             "KKDE002":Token.objects.get_or_create(user_id=2)[0],
@@ -172,6 +173,13 @@ class ListingTest(APITestCase):
         response = self.client.delete(self.url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertTrue(self.listing_exists())
+    
+    def test_owner_can_deactivate(self):
+        self.assertTrue(self.listing_active())
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.users["KKDE001"].key)
+        response = self.client.patch(self.url,data={'is_active':False})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(self.listing_active())
 
 class TransactionTest(APITestCase):
     fixtures = [
