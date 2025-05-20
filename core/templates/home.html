@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="post" action="."> {% csrf_token %}
+<div class="card">
+    <div class="card-body">
+    <h5 class="card-title">Record Transaction</h5>
+    {{ transaction_form|crispy }}
+    <button type="submit" class="btn btn-primary">Confirm</button>
+    </div>
+</div>
+</form>
+<p class="lead">My latest 5 Transactions</p>
+{% include 'core/parts/_transactions.html' %}
+
+
+<section id="balances">
+<h2>Balances</h2>
+<p>Your active account balances.</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>user</th>
+            <th>Amount</th>
+            <th>Last Change</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for balance in balances %}
+        <tr>
+            <td>{{ balance.other_user }}</td>
+            <td>{{ balance.relative_value_repr }}</td>
+            <td>{{ balance.balance.time_updated }}</td>
+            <td>
+                <a href="#">History</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</section>
+{% endblock %}
