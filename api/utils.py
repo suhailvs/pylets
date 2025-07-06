@@ -45,7 +45,14 @@ def save_transaction(transaction_type, amt, desc, seller, buyer):
         # send money
         seller, buyer = buyer, seller
 
-    amt = int(amt)
+    try:
+        amt = int(amt)
+    except ValueError:
+        # if . in amt
+        return resp(False, "Txn Amount must be Integer.")
+    if amt < 1:
+        return resp(False, "Txn Amount must be greater than 0.")
+    
     # _check_max_min_balance
     if seller.balance + amt > settings.MAXIMUM_BALANCE:
         return resp(False, "Seller has reached the maximum allowed amount")

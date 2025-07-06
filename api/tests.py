@@ -256,6 +256,26 @@ class TransactionTest(APITestCase):
         self.assertEqual(response.json()['data'], 10)
     
 
+    def test_txn_amt(self):
+        # login as anshad
+        token = Token.objects.get_or_create(user_id=5)[0]
+        # self.client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+        
+        # send a 0 rupee transaction
+        for amt in ['0','0.1','-10','0.9','abcd','1,3']:
+            response = self.client.post(
+                f"{BASE_URL}transactions/",
+                {
+                    "user": User.objects.get(username="PIXL001").id,
+                    "amount": amt,
+                    "message": f"sending amount of {{amt}} to sabreesh must return error",
+                },
+                headers={"Authorization": f"Token {token.key}"},
+                format="json",
+            )
+            self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+            # print(response.json())
+
     def test_buyer_transaction(self):
         # test buyer transaction
         # check sulaiman has -13$ balance
