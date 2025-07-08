@@ -4,7 +4,7 @@
 [![Django Version](https://img.shields.io/badge/django-5.1-brightgreen.svg)](https://djangoproject.com)
 [![Django Rest Framework Version](https://img.shields.io/badge/django--rest--framework-3.15.2-brightgreen.svg)](https://www.django-rest-framework.org/)
 
-pyLETS is an open source local exchange trading system (http://en.wikipedia.org/wiki/Local_Exchange_Trading_Systems) using python.
+pyLETS is an open source local exchange trading system (http://en.wikipedia.org/wiki/Local_Exchange_Trading_Systems) using python. LETS eliminates the systemic trap of needing endless growth to pay unpayable debts.
 
 ## Run it locally
 
