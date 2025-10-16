@@ -18,6 +18,7 @@
         "government_id": "",
         "date_of_birth": "1988-12-04",
         "balance": 0,
+        "image": "users/1000095195.jpg",
         "groups": [],
         "user_permissions": []
     }
@@ -41,6 +42,7 @@
         "government_id": "",
         "date_of_birth": "2025-03-09",
         "balance": 0,
+        "image": "users/1000096453.jpg",
         "groups": [],
         "user_permissions": []
     }
@@ -64,6 +66,7 @@
         "government_id": "",
         "date_of_birth": "2025-03-09",
         "balance": 0,
+        "image": "users/1000082291.jpg",
         "groups": [],
         "user_permissions": []
     }
@@ -87,6 +90,7 @@
         "government_id": "",
         "date_of_birth": "2025-03-09",
         "balance": 70,
+        "image": "users/IMG_20240514_171002.jpg",
         "groups": [],
         "user_permissions": []
     }
@@ -110,6 +114,7 @@
         "government_id": "",
         "date_of_birth": "2025-03-09",
         "balance": -40,
+        "image": "users/anshad.jpeg",
         "groups": [],
         "user_permissions": []
     }
@@ -133,6 +138,7 @@
         "government_id": "",
         "date_of_birth": "2025-03-09",
         "balance": 0,
+        "image": "users/DSC04385.jpeg",
         "groups": [],
         "user_permissions": []
     }
@@ -156,6 +162,7 @@
         "government_id": "",
         "date_of_birth": "2025-03-09",
         "balance": 0,
+        "image": "users/1000095972.jpg",
         "groups": [],
         "user_permissions": []
     }
@@ -179,6 +186,7 @@
         "government_id": "",
         "date_of_birth": "1988-12-04",
         "balance": -30,
+        "image": "users/me.jpg",
         "groups": [],
         "user_permissions": []
     }

@@ -1,0 +1,225 @@
+[{
+    "model": "coinapp.listing",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "Edifier p180 plus wired earphone with mic for rent",
+        "description": "**Offer Description: Rent Edifier P180 Plus Wired Earphones with Mic!**\r\n\r\nAre you looking for high-quality earphones for short-term use? Join our local exchange trading system and rent my **Edifier P180 Plus Wired Earphones with Mic**! Known for their superior sound quality, comfortable design, and built-in microphone, these earphones are perfect for:\r\n\r\n- **Online meetings, calls, and conferences**\r\n- **Listening to music or podcasts on the go**\r\n- **Gaming sessions or casual media use**\r\n\r\n**Why rent?**\r\nIf you're in need of dependable earphones but don't want to purchase your own, this is a cost-effective, eco-friendly alternative that promotes resource sharing within our community.\r\n\r\n**Terms of the offer:**\r\n- Flexible rental periods — rent for a day, week, or more!\r\n- In excellent condition and thoroughly cleaned between uses for hygiene.\r\n- Compatible with any device featuring a standard 3.5mm headphone jack.\r\n\r\n**Exchange Options:**\r\nIn exchange for the rental, I’m happy to explore **barter arrangements**! I’m open to receiving credits in the LETS system, other items, or services you can offer — let’s make a fair trade that benefits us both.\r\n\r\nMessage me now to arrange a swap or find out more details!",
+        "rate": "10 rs per day",
+        "listing_type": "O",
+        "created_at": "2025-02-05T02:43:19.758Z",
+        "image": "offering/2025/02/05/41jGfc2vThS._SX522_.jpg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 3,
+    "fields": {
+        "user": 1,
+        "category": "Transport",
+        "title": "Personal Transport Service via Bike(Bajaj CT 110)",
+        "description": "**Offering Description for Local Exchange Trading System:**\r\n\r\n**Service Name:** Personal Transport Service via Bike (Bajaj CT 110)\r\n\r\n**Description:**  \r\nNeed to get somewhere quickly, reliably, and affordably? I offer **personal transport services** using my fuel-efficient and comfortable **Bajaj CT 110** bike! Whether it's a short trip across town, running an errand, or commuting to a nearby destination, I ensure a safe, timely, and hassle-free ride tailored to your needs.  \r\n\r\nI follow all road safety rules, provide a helmet for passengers (if required), and prioritize your comfort and security.  \r\n\r\n**Perfect For:**  \r\n- Quick city commutes  \r\n- Errands or parcel drop-offs (small packages only)  \r\n- Short-distance travel to nearby neighborhoods  \r\n- Places where public transport doesn't easily reach  \r\n\r\n**Availability:**  \r\nI am flexible with timings, but preference is given to advance bookings. Let’s discuss your needs, and I’ll do my best to assist.\r\n\r\n**Exchange Terms:**  \r\nI'm open to barter and trade through our Local Exchange Trading System (LETS)! I can exchange this service for:  \r\n- Home-cooked meals  \r\n- Creative services (like graphic design, web development, etc.)  \r\n- Housework or assistance with daily chores  \r\n- Any goods or services you’d like to offer—feel free to suggest!  \r\n\r\n**Why Choose This Service?**  \r\n- Experienced rider with excellent knowledge of local routes.  \r\n- Affordable and eco-friendly transport option.  \r\n- A friendly and trustworthy service you can rely on!  \r\n\r\nIf you’re looking for a dependable and efficient way to get around locally, reach out to me to arrange your ride. Let’s trade and build a stronger community together! 🚲",
+        "rate": "2 rupees per kilometre",
+        "listing_type": "O",
+        "created_at": "2025-02-28T10:45:07.982Z",
+        "image": "offering/2025/02/28/ct100.jpeg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 4,
+    "fields": {
+        "user": 1,
+        "category": "Labour_Assistance",
+        "title": "Coconut climbing at your home",
+        "description": "**🌴 Local Exchange Trading System (LETS): Coconut Climbing Service 🌴**\r\n\r\nDo you have tall coconut trees on your property and need help accessing the delicious coconuts at the top? Look no further! As part of the Local Exchange Trading System (LETS), I’m offering a **Coconut Climbing Service** right at your home.\r\n\r\nHere’s what I offer:\r\n- **Safe and Skilled Coconut Climbing**: I’ll climb your coconut trees with care and expertise to harvest fresh coconuts.\r\n- **Tree Maintenance**: I can remove unwanted dead fronds or overhanging coconuts to keep your tree healthy and safe.\r\n- **Fresh Coconut Harvesting**: I’ll ensure you get those sweet, tropical coconuts ready to enjoy!\r\n- **Custom Requests**: Whether you’re harvesting for cooking, drinking, or other needs, let me know, and I’ll adapt the service to suit.\r\n\r\n❓ **How Does It Work?**\r\nExchange is at the heart of this service! You don’t need to pay in cash—instead, I accept other goods, services, or talents you can offer within the LETS. For example:\r\n- Fresh fruits or vegetables\r\n- Home-cooked meals\r\n- Repair services\r\n- Language lessons\r\n- Or anything else you can contribute!\r\n\r\n📍 **Availability**:\r\nI serve local homes and properties in [Your Location]. Please ensure your trees are safely accessible and let me know the specifics when booking the service. \r\n\r\nLet’s grow our local community together, one coconut tree at a time! 🍃🍈 Ready to trade? Drop me a message!",
+        "rate": "50 rupees per tree",
+        "listing_type": "O",
+        "created_at": "2025-02-28T12:30:21.560Z",
+        "image": "offering/2025/02/28/coconutclimbing.jpeg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 5,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "Vivo t2x mobile phone for rent",
+        "description": "### Local Exchange Trading System (LETS) Offering Description  \r\n\r\n**Offer Title:** Vivo T2x Mobile Phone for Rent  \r\n\r\n**Description:**  \r\nNeed a reliable and top-performing smartphone for a short period? I’m offering my **Vivo T2x mobile phone** for rent through our Local Exchange Trading System (LETS)! This is a great option if you need a high-performing device for temporary use, whether for work, study, travel, or any other activity.\r\n\r\nThe Vivo T2x features:  \r\n- **Stunning Display:** A large, crisp screen perfect for browsing, streaming, or gaming.  \r\n- **Powerful Processor:** Enjoy fast and seamless multitasking.  \r\n- **Long Battery Life:** Stay connected all day without interruptions.  \r\n- **Ample Storage:** Comes with plenty of space to store apps, files, and media.  \r\n- **High-Quality Camera:** Capture sharp photos and videos on the go.  \r\n\r\n**Availability:** The phone is available for daily, weekly, or monthly rentals, depending on your needs. Just let me know in advance to ensure it’s ready for you.  \r\n\r\n**Rental Fee:** Negotiable in LETS currency (time credits, barter items, or other agreed-upon terms). Let’s discuss and find a fair exchange!  \r\n\r\n**Terms and Conditions:**  \r\n1. The device will be provided in excellent working condition and must be returned in the same state.  \r\n2. A quick demo can be given during pick-up to ensure you’re comfortable using it.  \r\n3. Security deposit or equivalent value (in LETS) may be required and will be fully returned upon inspection of the device at the end of the rental period.  \r\n4. Please adhere to agreed rental timelines to avoid inconvenience to others.  \r\n\r\nIf you’re looking for an affordable and flexible way to rent a mobile phone, this is a great opportunity!  \r\n\r\n**How to Contact:** Simply message me through the LETS platform or contact me directly to arrange the rental terms. I’m happy to discuss options and work within the LETS guidelines to make this a win-win exchange!  \r\n\r\nLet's trade smartly and sustainably in our community. 😊",
+        "rate": "20 rupees per day",
+        "listing_type": "O",
+        "created_at": "2025-02-28T12:34:23.583Z",
+        "image": "offering/2025/02/28/vivot2x.png",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 6,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "Ambrane power bank 10000mah for rent",
+        "description": "**Offering Description for Local Exchange Trading System (LETS)**  \r\n\r\n**Title:** Rent Out Your Power On-the-Go: Ambrane 10000mAh Power Bank  \r\n\r\n**Description:**  \r\nAre you tired of running out of battery during a busy day or while traveling? I’m offering my **Ambrane Power Bank (10,000mAh)** for **short-term rent** through our Local Exchange Trading System. This compact and reliable power bank can keep your device charged anywhere, anytime, whether you're attending events, commuting, or on an outdoor adventure.  \r\n\r\n**What You Get:**  \r\n- **Ambrane 10,000mAh Power Bank** with dual USB outputs to charge multiple devices simultaneously.  \r\n- Capability to fully recharge most smartphones 2-3 times on a single charge.  \r\n- Lightweight and portable—easy to carry in your bag or pocket.\r\n  \r\n**Terms of Use:**  \r\n- Rent periods as per mutual agreement (e.g., daily or weekly).  \r\n- Power bank will be provided fully charged and must be returned in the same condition.  \r\n- Contact me for flexibility in exchange terms—let’s discuss how we can make this a fair and beneficial trade! 😊  \r\n\r\n**Potential Exchange Ideas:**  \r\nI’m open to receiving time, services, or goods in exchange. Options could include:  \r\n- Help with errands or household tasks.  \r\n- Homemade crafts or baked goods.  \r\n- Local produce, plants, or other useful items.  \r\n- Or let me know what you’d like to offer in return!  \r\n\r\nStay powered up while keeping trading local and sustainable. Let me know if you’d like to rent or discuss terms further! 🙂",
+        "rate": "1 rupees per day",
+        "listing_type": "O",
+        "created_at": "2025-02-28T12:39:04.379Z",
+        "image": "offering/2025/02/28/powerbank.webp",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 7,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "MSI modern 14 laptop for rent",
+        "description": "**Offering Description for Local Exchange Trading System (LETS)**  \r\n\r\n**Title:** MSI Modern 14 Laptop for Rent – Compact, Powerful, Ready for Your Needs  \r\n\r\n**Description:**  \r\nAre you looking for a fast, reliable, and stylish laptop for a short-term project, study session, or to enhance your productivity? Look no further! I’m offering my **MSI Modern 14 laptop** for rent through the Local Exchange Trading System (LETS). Ideal for work, study, or creative tasks, this laptop is well-maintained and loaded with features to meet your needs.  \r\n\r\n**Laptop Highlights:**  \r\n- **Model:** MSI Modern 14  \r\n- **Specifications:**  \r\n  - Intel Core i3 processor (depending on configuration)  \r\n  - 8GB RAM  \r\n  - SSD storage for fast performance  \r\n  - Full HD 14” display for crisp visuals  \r\n  - Lightweight and portable design for easy transport  \r\n  - Long battery life to keep you productive on the go  \r\n- **Installed Software:** Includes Ubuntu 24 and Windows 10.  \r\n\r\n**Perfect For:**  \r\n- Students who need a laptop for research, online classes, or assignments.  \r\n- Freelancers working on short-term projects.  \r\n- Professionals needing a portable solution for presentations or meetings.  \r\n- Travelers seeking a laptop without committing to a new purchase.  \r\n\r\n**Rental Details:**  \r\n- Flexible rental periods (daily, weekly, or monthly).  \r\n- Rate negotiable in LETS credits.  \r\n- I’ll provide help with setup if needed.  \r\n\r\n**Conditions:**  \r\n- Kindly handle the laptop with care during the rental period.  \r\n- Return it in the same condition as received.  \r\n- A small deposit may be required for security purposes (negotiable).  \r\n\r\nIf you’re interested, feel free to message me with your preferred rental duration and specific requirements. Let’s trade and make this a win-win exchange through LETS!",
+        "rate": "80 rupees per day",
+        "listing_type": "O",
+        "created_at": "2025-02-28T12:44:09.813Z",
+        "image": "offering/2025/02/28/laptopmsi.jpeg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 8,
+    "fields": {
+        "user": 1,
+        "category": "Media_Advertising",
+        "title": "Biodata preparation for job applications",
+        "description": "**Service Offering in Local Exchange Trading System (LETS): Professional Biodata Preparation for Job Applications**  \r\n\r\nAre you prepping for that dream job but unsure how to present yourself in the best possible light? Let me help! I offer expert **Biodata Preparation Services** to make your job application stand out.\r\n\r\n### What I Provide:\r\n- A well-organized, professional biodata or CV tailored to your target industry.\r\n- Compelling formatting and design for easy readability and impact.\r\n- Guidance on how to present your skills, achievements, and experience effectively.\r\n- Assistance with writing personalized objective statements or summaries.\r\n- Edits and revisions to ensure your biodata is error-free and polished.\r\n\r\n### Why Choose Me?  \r\n- Extensive experience in crafting high-quality job applications.  \r\n- Understanding of employer preferences and hiring trends.  \r\n- Personalized approach to make your biodata unique to *you*.  \r\n\r\n### How it Works:  \r\n1. Share your information, skills, and achievements with me through a brief chat or document exchange.  \r\n2. I'll draft a comprehensive biodata tailored to your needs.  \r\n3. Once completed, we can review together and make final edits to ensure you're 100% satisfied.  \r\n\r\nWhether you're applying for your first job or gearing up for a career change, I’ll help showcase your strengths and expertise!\r\n\r\n### LETS Exchange:\r\n- [Specify the type of trade, e.g., Hours, Points, or Items you're willing to accept in return.]  \r\n- Flexible to negotiate based on your needs.\r\n\r\nLet’s work together to make your job hunt stress-free and successful! Reach out today. 😊",
+        "rate": "20 rs",
+        "listing_type": "O",
+        "created_at": "2025-02-28T12:48:47.965Z",
+        "image": "offering/2025/02/28/biodata.webp",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 9,
+    "fields": {
+        "user": 1,
+        "category": "Food_Drink",
+        "title": "Pexpo 24 Hrs Hot and Cold Electro Vacuum insulated Flask 1 litre for rent",
+        "description": "**Offering on Local Exchange Trading System (LETS)**  \r\n\r\n**Service/Item Offered:** High-Quality Flask Rental - Pexpo 24 Hrs Hot and Cold Electro Vacuum Insulated Flask (1 Litre)\r\n\r\n**Description:**  \r\nDo you need a reliable, high-quality flask for a short-term use? Whether you're planning a day trip, a picnic, or simply need a convenient way to keep your beverages hot or cold, I’m offering my **Pexpo 24 Hrs Hot and Cold Electro Vacuum Insulated Flask (1 Litre)** for rent.  \r\n\r\nThis flask is perfect for keeping your drinks hot for up to 24 hours or cold for the same duration. It’s made of durable, food-grade materials and has a sleek, modern design that’s both functional and stylish. Ideal for any occasion, be it outdoor adventures, work commutes, or casual meetups!  \r\n\r\n**Key Features:**  \r\n- 1-litre capacity – perfect for extended use without frequent refills.  \r\n- Advanced electro vacuum insulation technology – maintains drink temperature for 24 hours.  \r\n- Sturdy, leak-proof design – no spills while you're on the go.  \r\n- Lightweight and easy to carry.  \r\n\r\n**Terms of Rental:**  \r\n- Daily, weekly, or weekend rental options available.  \r\n- Flask will be provided clean, sanitized, and ready to use. Please return it in the same condition.  \r\n- Rental exchange fee to be arranged through LETS credits or a mutually agreed equivalent in goods/services.  \r\n- Pickup and drop-off to be coordinated based on mutual convenience.  \r\n\r\n**Why Rent Instead of Buying?**  \r\nAvoid buying a new flask for infrequent needs. Save money, reduce waste, and be part of a sustainable sharing economy through LETS.  \r\n\r\nIf you’re interested, feel free to reach out with your needs, rental duration, and any specific requests. Let’s trade and make life easier, one swap at a time! 😊",
+        "rate": "5 rupees per day",
+        "listing_type": "O",
+        "created_at": "2025-03-05T09:41:19.974Z",
+        "image": "offering/2025/03/05/pexpo_flask.webp",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 10,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "Quran teaching with translation in malayalam",
+        "description": "**✨ Local Exchange Trading System (LETS) Offering Description ✨**\n\n**Service Offered:** Quran Teaching with Translation in Malayalam  \n**Category:** Education and Spiritual Growth  \n**Location:** [Insert Your Area/Community Here]  \n**Mode of Service:** In-person or Online (Based on Preference)\n\n**Description:**  \nI am offering personalized Quran teaching sessions focusing on recitation, understanding, and deep reflection through detailed translation and explanation in Malayalam. Whether you're a beginner looking to learn the basics of Quranic Arabic or someone seeking deeper insights into the meaning and message of the Quran, my sessions are tailored to meet your needs.\n\n**Key Highlights:**  \n- Step-by-step guidance on Quranic recitation (Tajweed included).  \n- Clear and thoughtful translation of Quranic verses into Malayalam for better understanding.  \n- Discussions surrounding Tafsir (exegesis) to explore the context and application of the verses in daily life.  \n- Suitable for adults and children alike.  \n\n**How to Exchange:**  \nAs part of the Local Exchange Trading System, I am open to exchanging this service for other activities, services, or goods. Possible exchanges could include:  \n- Cooking homemade meals or snacks.  \n- Gardening or help with growing plants.  \n- Teaching another skill or language.  \n- Helping with errands or chores.  \n- Anything else you are willing to offer or exchange!  \n\n**Availability:**  \n[Include your available days and times here]  \n\n**Why Choose This Offering?**  \nBy joining this LETS initiative, you're not just learning Quran and gaining spiritual knowledge; you're also fostering stronger community bonds. Let's exchange knowledge, skills, and services to build a more meaningful and connected community.\n\n**To Connect:**  \nPlease reach out via [contact method – phone, email, or LETS platform messaging] to discuss availability and mutually beneficial exchanges.  \n\nLet’s learn, grow, and give back together! 🌟",
+        "rate": "10 rs per hour",
+        "listing_type": "O",
+        "created_at": "2025-03-16T04:49:11.304Z",
+        "image": "offering/2025/03/16/upload.jpeg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 11,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "Quran teaching in malayalam",
+        "description": "**ലോക്കൽ എക്‌സ്‌ചേഞ്ച് ട്രേഡിംഗ് സിസ്റ്റം (ലെറ്റ്‌സ്) ഓഫർ: ഖുർആൻ പഠിപ്പിക്കൽ മലയാളം**\n\n എല്ലാ പ്രായത്തിലും തലത്തിലുമുള്ള പഠിതാക്കൾക്കായി രൂപകൽപ്പന ചെയ്‌തിരിക്കുന്ന എൻ്റെ വ്യക്തിഗതമാക്കിയ അധ്യാപന സെഷനുകളിലൂടെ ഖുർആനിൻ്റെ ആത്മീയവും ഭാഷാപരവുമായ സൗന്ദര്യം അൺലോക്ക് ചെയ്യുക.  നിങ്ങൾ ഖുർആനിക യാത്ര ആരംഭിക്കുകയാണെങ്കിലും അല്ലെങ്കിൽ നിങ്ങളുടെ പാരായണവും ഗ്രാഹ്യവും വർദ്ധിപ്പിക്കാൻ ശ്രമിക്കുകയാണെങ്കിലും, വഴിയുടെ ഓരോ ഘട്ടത്തിലും നിങ്ങളെ നയിക്കാൻ ഞാൻ ഇവിടെയുണ്ട്.\n\n **ഞാൻ ഓഫർ ചെയ്യുന്നത്:**\n - **ഖുർആൻ പാരായണം (തജ്‌വീദ്):** ഖുറാൻ വാക്യങ്ങളുടെ ശരിയായ ഉച്ചാരണം, ഉച്ചാരണം എന്നിവ പഠിക്കുക.\n - **അടിസ്ഥാനത്തിലുള്ള വിപുലമായ പാഠങ്ങൾ:** നിങ്ങൾ ഒരു തുടക്കക്കാരനായാലും അല്ലെങ്കിൽ കുറച്ച് മുൻകൂർ അറിവുള്ളവരായാലും, നിങ്ങളുടെ നിർദ്ദിഷ്ട ലക്ഷ്യങ്ങൾ കൈവരിക്കുന്നതിന് ഞാൻ സെഷനുകൾ ക്രമീകരിക്കും.\n - **അർത്ഥം മനസ്സിലാക്കൽ:** നന്നായി മനസ്സിലാക്കാൻ മലയാളത്തിൽ പഠിപ്പിക്കുന്ന ഖുറാൻ സൂക്തങ്ങളുടെ ആഴത്തിലുള്ള അർത്ഥങ്ങളെക്കുറിച്ചുള്ള ഉൾക്കാഴ്‌ചകൾ നേടുക.\n - **ഫ്ലെക്സിബിൾ ലേണിംഗ്:** നിങ്ങളുടെ മുൻഗണനയും സൗകര്യവും അടിസ്ഥാനമാക്കി വ്യക്തിഗതമായോ ഓൺലൈൻ ക്ലാസുകളോ ക്രമീകരിക്കാവുന്നതാണ്.\n - **വൺ-ഓൺ-വൺ അല്ലെങ്കിൽ ഗ്രൂപ്പ് സെഷനുകൾ:** വ്യക്തിപരമാക്കിയ ശ്രദ്ധയോ കുടുംബാംഗങ്ങളുമായും സുഹൃത്തുക്കളുമായും ഉള്ള പഠനമോ തിരഞ്ഞെടുക്കുക.\n\n **ഇത് ആർക്കുവേണ്ടിയാണ്:**\n - ഏത് തലത്തിലും മലയാളത്തിൽ ഖുർആൻ പഠിക്കാൻ ഉത്സുകരായ വ്യക്തികൾ അല്ലെങ്കിൽ കുടുംബങ്ങൾ.\n - എളുപ്പത്തിൽ പഠിക്കുന്നതിനായി അവരുടെ മാതൃഭാഷയിൽ നൽകുന്ന പാഠങ്ങൾ ഇഷ്ടപ്പെടുന്ന കുട്ടികൾ, മുതിർന്നവർ അല്ലെങ്കിൽ മുതിർന്നവർ.\n - പാരായണം, മനസ്സിലാക്കൽ, പരിശീലനം എന്നിവയിലൂടെ ഖുർആനുമായുള്ള ബന്ധം കൂടുതൽ ആഴത്തിലാക്കാൻ താൽപ്പര്യമുള്ള ആർക്കും.\n\n **ഞാൻ എക്സ്ചേഞ്ചിൽ അഭ്യർത്ഥിക്കുന്നത് (LETS):**\n ഇത് ലോക്കൽ എക്‌സ്‌ചേഞ്ച് ട്രേഡിംഗ് സിസ്റ്റത്തിൻ്റെ ഭാഗമായതിനാൽ, ഇനിപ്പറയുന്നതുപോലുള്ള വൈവിധ്യമാർന്ന എക്‌സ്‌ചേഞ്ചുകൾക്കായി ഞാൻ തുറന്നിരിക്കുന്നു:\n - നിങ്ങൾക്കുള്ള വൈദഗ്ധ്യമോ അറിവോ പങ്കിടൽ (ഉദാ. പാചകം, പൂന്തോട്ടപരിപാലനം, കരകൗശലവസ്തുക്കൾ മുതലായവ).\n - ജോലികൾ, ജോലികൾ അല്ലെങ്കിൽ സേവനങ്ങൾ എന്നിവയിൽ സഹായിക്കുന്നു (ഉദാ. പ്രമാണം തയ്യാറാക്കൽ, സാങ്കേതിക പിന്തുണ മുതലായവ).\n - നിങ്ങളുടെ പൂന്തോട്ടത്തിൽ/അടുക്കളയിൽ നിന്ന് പുതിയ ഉൽപ്പന്നങ്ങൾ അല്ലെങ്കിൽ ഭവനങ്ങളിൽ നിർമ്മിച്ച ഇനങ്ങൾ.\n - അല്ലെങ്കിൽ പരസ്പര പ്രയോജനത്തിൻ്റെയും കമ്മ്യൂണിറ്റി സമ്പുഷ്ടീകരണത്തിൻ്റെയും LETS തത്വവുമായി പൊരുത്തപ്പെടുന്ന മറ്റേതെങ്കിലും തരത്തിലുള്ള കൈമാറ്റം.\n\n **എന്തുകൊണ്ടാണ് ഈ ഓഫർ തിരഞ്ഞെടുക്കുന്നത്?**\n ഞാൻ അധ്യാപനത്തിൽ അഭിനിവേശമുള്ളവനും ഖുറാൻ പഠനം മലയാളി സമൂഹത്തിലെ എല്ലാവർക്കും പ്രാപ്യമാക്കാൻ പ്രതിജ്ഞാബദ്ധനുമാണ്.  ക്ഷമയും സൗഹൃദപരവുമായ അധ്യാപന ശൈലി ഉപയോഗിച്ച്, പഠനം നിങ്ങൾക്ക് അർത്ഥപൂർണ്ണവും ആസ്വാദ്യകരവുമാണെന്ന് ഞാൻ ഉറപ്പാക്കും.\n\n നിങ്ങൾക്ക് താൽപ്പര്യമുണ്ടെങ്കിൽ, അറിവിൻ്റെയും കഴിവുകളുടെയും ഈ കൈമാറ്റത്തിലൂടെ നമ്മുടെ കമ്മ്യൂണിറ്റിയെ സമ്പന്നമാക്കാം.  പാഠങ്ങൾ ക്രമീകരിക്കുന്നതിനോ ആശയങ്ങൾ കൈമാറുന്നതിനോ ബന്ധപ്പെടാൻ മടിക്കേണ്ടതില്ല!",
+        "rate": "10 rs",
+        "listing_type": "O",
+        "created_at": "2025-03-16T04:53:04.178Z",
+        "image": "offering/2025/03/16/upload_lvvpBKy.jpeg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 12,
+    "fields": {
+        "user": 1,
+        "category": "Electronics",
+        "title": "I can tutor you",
+        "description": "**Community Skills & Goods Exchange: Offering Personalized Tutoring & More!**\n\nWelcome to our Local Exchange Trading System (LETS), where the power of community thrives through the sharing of skills, talents, and goods! I'm excited to contribute by offering **personalized tutoring** and more.\n\n### **What I Offer:**\n1. **Personalized Tutoring Services**  \n   - Subjects: [Specify subjects, e.g., Math, Science, English, etc.]  \n   - Level: [Specify level, e.g., Middle School, High School, Beginners, etc.]  \n   - Specialty: Whether you need help with homework, preparing for exams, or building foundational skills, I design lessons to meet your unique needs.\n\n2. **Skill-Based Learning**  \n   - Want to learn something new? I can teach [e.g., how to write effectively, basic coding, or a new language].\n\n3. **Other Offerings**  \n   - [Feel free to add anything else you're offering, e.g., proofreading documents, workshops, or guidance on creative projects.]  \n\n### **How It Works:**  \n- My services are part of our LETS, meaning no money is involved! Instead, we'll trade services or goods based on mutual agreement.\n- Example: You offer me a [baked loaf of bread, a yoga class, or help with gardening], and I’ll tutor you on your chosen topic!\n\n### **Why Choose Me?**  \nAs someone who values learning and community connection, I’m committed to making our exchange enjoyable and rewarding. My approach is enthusiastic, supportive, and tailored just for you!\n\nLet’s make this a win-win exchange! Whether you're looking to build a skill, gain confidence in a subject, or trade for something I offer, feel free to reach out. 😊\n\n---\n\n*Looking forward to connecting and contributing to our wonderful community!*",
+        "rate": "100rs",
+        "listing_type": "O",
+        "created_at": "2025-03-28T04:47:04.136Z",
+        "image": "offering/2025/03/28/upload.jpeg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 13,
+    "fields": {
+        "user": 1,
+        "category": "Food_Drink",
+        "title": "Pathiri food 3 rupees per piece",
+        "description": "**Local Exchange Trading System (LETS) Offering: Homemade Pathiri – Traditional Delicacy for Just 3 Units Per Piece**\n\nAre you craving authentic, homemade Pathiri? Let me bring the taste of tradition straight to your table! 🌾✨\n\nI am offering **freshly made Pathiri**, a soft and delicate rice flour flatbread that pairs perfectly with your favorite curries, stews, or chutneys. Whether for a family meal, a festive gathering, or just to satisfy your love for traditional flavors, my Pathiris are made with care, love, and the finest ingredients.\n\n**Offering Details:**\n- **Type:** Homemade Pathiri (100% fresh and authentic)\n- **Exchange Rate:** 3 LETS units per piece\n- **Quantity:** Available in small or large batches – just let me know how many you need!\n- **Special Requests:** Let me know if you prefer smaller/larger pieces or if you'd like them to be plain or slightly roasted.\n\n**Why Choose My Pathiri?**\n- Made fresh daily with high-quality ingredients.\n- Prepared with traditional methods to ensure authentic taste.\n- Perfect for any meal or special occasion.\n- A delightful way to exchange talents and tastes in our LETS community!\n\nContact me today to place your order or inquire about availability. Let's support our vibrant local exchange network while enjoying delicious homemade food! 🍴",
+        "rate": "3 rupees per piece",
+        "listing_type": "O",
+        "created_at": "2025-05-01T04:54:29.577Z",
+        "image": "offering/2025/05/01/upload.jpg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 14,
+    "fields": {
+        "user": 1,
+        "category": "CESServices",
+        "title": "Salesman for lets marketting",
+        "description": "**Wants Description: Salesman for LETS Marketing**  \n\nWe are looking for motivated and enthusiastic salespeople to join our Local Exchange Trading System (LETS) marketing initiative. As a community-driven platform, LETS thrives on building strong relationships and empowering individuals to trade goods and services locally. The ideal candidate will actively promote our LETS network, attract new members, and generate excitement by spreading awareness of our unique barter-based economy.  \n\n**What We're Looking For:**  \n- **Strong Communication Skills:** You can connect with people easily, convey our mission effectively, and build trust within the local community.  \n- **Passion for Community Development:** You believe in the power of local collaboration and want to help grow a sustainable, inclusive trading network.  \n- **Marketing Experience (Preferred):** A background in sales, networking, or marketing is a plus, but not mandatory. Enthusiasm and willingness to learn are just as important.  \n- **Flexibility & Self-Motivation:** You can work independently, identify potential leads, and pursue goals proactively.  \n\n**What You'll Do:**  \n- Introduce LETS to individuals, small businesses, and local organizations.  \n- Help potential members understand the value and benefits of trading through LETS.  \n- Assist new members with onboarding and navigating the system.  \n- Foster ongoing engagement and participation among members.  \n\n**Compensation:**  \nAs part of the LETS system, your compensation may include earning trading credits (referred to as LETS credits or points) that you can redeem for goods and services within the network. For example, use your credits for food, professional services, or any offerings available in the LETS marketplace.  \n\n**Why Join Us?**  \nThis is an exciting opportunity to be at the heart of a local movement that is revitalizing bartering and changing the way people trade for the better. You’ll meet incredible people, shape vibrant communities, and make a tangible difference in fostering a spirit of collaboration and support.  \n\nIf you're interested in becoming a Salesman for LETS marketing, join us and take the first step toward making a big impact on your local community!",
+        "rate": "100 rs per hour",
+        "listing_type": "W",
+        "created_at": "2025-05-01T04:57:18.057Z",
+        "image": "offering/2025/05/01/upload_6ZRAy5w.jpg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 15,
+    "fields": {
+        "user": 1,
+        "category": "CESServices",
+        "title": "django, react native expo developers wanted to maintain lets system",
+        "description": "**Wants Description for Local Exchange Trading System (LETS)**  \n\n**Title:** Django and React Native (Expo) Developers Wanted for LETS Maintenance  \n\n**Description:**  \nWe are seeking skilled and passionate **Django** and **React Native (Expo)** developers to help maintain and improve our **Local Exchange Trading System (LETS)** platform. LETS is a community-driven initiative that facilitates the exchange of goods and services without the use of money, emphasizing local economic sustainability and mutual support.  \n\nOur platform is a web and mobile-based system built using **Django** for the backend and **React Native (Expo)** for the mobile frontend. We value teamwork, innovation, and commitment to community development, and we are looking for developers who share this vision.  \n\n### **What We Need:**  \n- **Django Developers:**  \n   - Maintain and optimize the existing Django backend.  \n   - Implement new features, improve API performance, and fix bugs.  \n   - Ensure the security and scalability of the platform.  \n\n- **React Native (Expo) Developers:**  \n   - Maintain and enhance the React Native (Expo) mobile application.  \n   - Debug issues, optimize UI/UX, and implement new features.  \n   - Ensure compatibility across Android and iOS devices.  \n\n### **Requirements:**  \n- Proven experience in Django or React Native (Expo).  \n- Familiarity with RESTful APIs and integration.  \n- Strong problem-solving skills and attention to detail.  \n- Ability to work in a collaborative environment.  \n- Commitment to writing clean, maintainable, and well-documented code.  \n\n### **Bonus Skills (Optional):**  \n- Experience with database optimization (e.g., PostgreSQL).  \n- Familiarity with payment gateways or trade tracking systems.  \n- Knowledge of other front-end frameworks like ReactJS.  \n\n### **What’s in it for you?**  \n- Join a project that positively impacts local communities.  \n- Flexible working hours with a remote-friendly environment.  \n- Opportunity to work on meaningful technology for sustainable economic systems.  \n\n### **How to Apply:**  \nIf you’re passionate about contributing to a community-driven project and have the skills we’re looking for, please send your application (CV, portfolio, and GitHub/LinkedIn profile) to [insert contact information].  \n\nLet’s work together to make local economies thrive!",
+        "rate": "200 rs per hour",
+        "listing_type": "W",
+        "created_at": "2025-05-01T06:49:44.796Z",
+        "image": "offering/2025/05/01/upload_IfpagRE.jpg",
+        "is_active": true
+    }
+},
+{
+    "model": "coinapp.listing",
+    "pk": 16,
+    "fields": {
+        "user": 2,
+        "category": "Advice_Tuition",
+        "title": "Maths Tuition for upto 10 standard",
+        "description": "**Offering: Maths Tuition for Students (Up to 10th Standard)**  \n\nDo you or your child need support with Maths? I’m offering personalized **Maths Tuition** as part of the Local Exchange Trading System (LETS)! I specialize in helping students from primary levels up to **10th standard** (Year 10) build confidence, master concepts, and improve their problem-solving skills.  \n\n### What’s Included:\n- **One-on-One or Group Sessions:** Tailored to the student’s pace and level of understanding.  \n- **Comprehensive Coverage of Syllabus:** Algebra, Geometry, Trigonometry, Probability, Calculus (if applicable), and more.  \n- **Exam Preparation and Homework Help:** Assistance with test strategies, past papers, and assignments.  \n- **Concept-Focused Learning:** Simplifying tricky problems and explaining solutions in a clear, accessible way.  \n- **Interactive and Engaging Lessons:** Real-life applications to make learning maths fun!  \n\n### Perfect For:\n- Students who need extra practice or clarification with tough topics.  \n- Learners preparing for school exams or improving their grades.   \n- Anyone wanting to boost their confidence in Maths!  \n\n### Exchange Details:\nI’m trading this service as part of LETS, so I’m happy to accept **skills, goods, or services in return.** Some examples of what I’d be interested in are:  \n- Cooking/Baking lessons or homemade meals  \n- Gardening help  \n- Cleaning/Organizing services  \n- Art, craft, or creative workshops  \n- Any other service or skill you’re offering!  \n\nLet’s connect to discuss how we can trade and make learning Maths a positive experience. Feel free to reach out and let me know how I can help! 😊",
+        "rate": "10 per hour",
+        "listing_type": "O",
+        "created_at": "2025-05-01T08:00:46.283Z",
+        "image": "offering/2025/05/01/upload_DHGIXZg.jpg",
+        "is_active": true
+    }
+}]

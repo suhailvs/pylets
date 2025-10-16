@@ -52,3 +52,12 @@ SAMPLE_OFFERINGS = [
     ["Accommodation_Space", "land", "25 meter/sq land", "50000$ per cent"],
     ["Accommodation_Space", "room_rent", "Room rent/month", "5000$ per month"],
 ]
+
+SAMPLE_USERS = [
+    'afsal', 'ajmal', 'ameen', 'ansaf', 'ansar', 'ansif', 'ansil','ansiya','ayaan', 'basith', 'diya',
+    'doulath','faseela', 'fazal', 'fouziya','hair', 'hamza','hiba','hisana','ishanu','jasmin','jina',
+    'kadeeja','kunjumuthu','lulu','meerankutty','moosa','mufeed','mumthaj','najath','najma','nasar',
+    'naseema','naseer', 'nazal','neema','nihal','nishad', 'nusra', 'rafeena','rasiya','resi','rubeena',
+    'sabeela','sabeena','saji','saleem','samrin','shahana','shaira','shakeer','shami','shamsu','shihas',
+    'sofi', 'sumayya','shakeer','sufail','suhail','sulaiman','vaheedha'
+]
