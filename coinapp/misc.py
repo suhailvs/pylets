@@ -33,12 +33,7 @@ CATEGORIES = [
 
 SAMPLE_OFFERINGS = [
     ["Food_Drink", "rice", "Matta rice", "50$ per kg"],
-    [
-        "Food_Drink",
-        "coconut",
-        "Thenga. Coconut for chutney and curry.",
-        "20$ per piece",
-    ],
+    ["Food_Drink","coconut","Thenga. Coconut for chutney and curry.","20$ per piece"],
     ["Food_Drink", "egg", "Egg recipies per piece", "8$ per piece"],
     ["Food_Drink", "brinjal", "Vazhuthanangal, per kg", "20$ per kg"],
     ["Food_Drink", "mulak_podi", "Mulaku podi per 100gram", "40$ per 100grams"],
