@@ -46,11 +46,13 @@
               <tr><td>Username</td><td>{{current_user.username}}</td></tr>
               <tr><td>Name</td><td>{{current_user.first_name}}</td></tr>
               <tr><td>Balance</td><td>{{current_user.balance}}</td></tr>
+              <tr><td>Stellar Address</td><td>{% stellar_address current_user.stellar_publickey %}</td></tr>
+              
             </tbody>
           </table>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
   <div class="tab-pane fade" id="offerings-tab-pane" role="tabpanel" aria-labelledby="offerings-tab" tabindex="0">
     {% include 'frontendapp/parts/_listings.html' with listing_type='O' %}

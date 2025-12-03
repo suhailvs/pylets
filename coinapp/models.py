@@ -1,4 +1,5 @@
 import pycountry
+from stellar_sdk import Keypair
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from . import misc
@@ -34,6 +35,9 @@ class User(AbstractUser):
         debited = Transaction.objects.filter(buyer=self).aggregate(t=models.Sum('amount'))['t'] or 0
         return credited - debited
 
+    @property
+    def stellar_publickey(self):        
+        return Keypair.from_secret(self.stellar_secret).public_key
 
 class Exchange(models.Model):
     code = models.CharField(max_length=5, unique=True)
