@@ -43,9 +43,9 @@ class SignUpForm(UserCreationForm):
             # new exchange
             user.username = generate_username(exchange_obj.code)
             user.exchange = exchange_obj
-            # for new asset, create trust for distributor
+            # for new asset, create trust and fund the distributor
             SQ = StellarPayment(asset_code=exchange_obj.code)
-            SQ.create_exchange()
+            SQ.fund_distributor()
         else:
             user.username = generate_username(user.exchange.code) 
         user.save()

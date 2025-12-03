@@ -5,6 +5,7 @@ for testing frontendapp you must change line
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from unittest.mock import patch
 
 User = get_user_model()
 
@@ -13,7 +14,14 @@ class CreateExchangeTest(TestCase):
         self.client = Client()
         self.url = reverse("signup_new")
 
-    def test_createexchange(self):
+    @patch("frontendapp.forms.StellarPayment.create_ac")
+    @patch("frontendapp.forms.StellarPayment.change_trust")
+    @patch("frontendapp.forms.StellarPayment.fund_distributor")
+    def test_createexchange(
+        self, 
+        mock_fund_distributor,
+        mock_change_trust,
+        mock_create_ac):
         data = {"code":"KKED", "name":"Kolakkode Exchange", "address":"aa", "dummy_country_dropdown":"IN","country_city":"IN-KL",
             "phone": '7238233233',"password1": "dummypassword","password2":"dummypassword","email":"suhail@gmail.com", 
             "government_id":"123123","date_of_birth":"1988-12-04","tandc":True}
@@ -35,6 +43,10 @@ class CreateExchangeTest(TestCase):
             f'<a href="{reverse("frontendapp:user_detail", args=("KKED","1"))}"><strong>KKED001</strong> </a>', 
             response.content.decode()
         )
+        # Stellar calls:
+        mock_fund_distributor.assert_called_once()  # for new exchange
+        mock_create_ac.assert_called_once()
+        mock_change_trust.assert_called_once()
 
 
 class TransactionTest(TestCase):

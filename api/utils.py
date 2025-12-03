@@ -73,7 +73,7 @@ class StellarPayment:
         txn = payment_txn.append_payment_op(destination=destination_public,asset=self.asset,amount=amount).set_timeout(100).build()
         payment_txn_resp = self._submit_txn(txn,source_keypair)
 
-    def create_exchange(self):
+    def fund_distributor(self):
         self.change_trust(self.distributor)
         self.payment(self.distributor.public_key,1_00_000,distributor_funding=True)
 
