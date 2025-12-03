@@ -1,4 +1,5 @@
 import pycountry
+from stellar_sdk import Keypair
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
@@ -6,6 +7,8 @@ from django import forms
 from django.forms.utils import ValidationError
 from coinapp.models import Exchange, Listing
 from api.serializers import generate_username
+from api.utils import StellarPayment
+
 User = get_user_model()
 
 
@@ -21,15 +24,32 @@ class SignUpForm(UserCreationForm):
                 raise ValidationError({'government_id': 'This Government ID must be unique.'})
         return govt_id
     
+    def _create_stellar_account(self,user_obj):
+        if user_obj.stellar_secret:
+            user_keypair = Keypair.from_secret(user_obj.stellar_secret)
+        else:
+            user_keypair = Keypair.random()
+            user_obj.stellar_secret=user_keypair.secret
+            user_obj.save()
+
+        SQ = StellarPayment(asset_code=user_obj.exchange.code)
+        SQ.create_ac(user_keypair)        
+        SQ.change_trust(user_keypair)
+        
+
     def save(self, commit=True, exchange_obj=None):
         user = super().save(commit=commit)
         if exchange_obj:
             # new exchange
             user.username = generate_username(exchange_obj.code)
             user.exchange = exchange_obj
+            # for new asset, create trust for distributor
+            SQ = StellarPayment(asset_code=exchange_obj.code)
+            SQ.create_exchange()
         else:
             user.username = generate_username(user.exchange.code) 
         user.save()
+        self._create_stellar_account(user)
         return user
 
     class Meta(UserCreationForm.Meta):

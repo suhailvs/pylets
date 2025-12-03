@@ -9,3 +9,4 @@ python-decouple==3.8
 pillow==11.1.0
 pycountry==24.6.1
 sorl-thumbnail==12.11.0
+stellar-sdk==13.1.0

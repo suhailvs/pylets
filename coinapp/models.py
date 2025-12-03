@@ -26,7 +26,8 @@ class User(AbstractUser):
     date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)
     image = models.ImageField(upload_to='users/')
-
+    stellar_secret = models.CharField(max_length=50, blank=True)
+    
     @property
     def balance_from_txns(self):
         credited = Transaction.objects.filter(seller=self).aggregate(t=models.Sum('amount'))['t'] or 0
