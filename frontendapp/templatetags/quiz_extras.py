@@ -13,11 +13,14 @@ def gravatar_url(username, size=40):
 
 @register.simple_tag
 def stellar_address(address):
-    html = f"""
-        <button  onclick="navigator.clipboard.writeText('{address}')" style="cursor:pointer;"
-            class="btn btn-outline-primary btn-sm"
-        >{address[:5]}...{address[-5:]}</button>
-    """
+    if address:
+        html = f"""
+            <button onclick="navigator.clipboard.writeText('{address}')" style="cursor:pointer;"
+                class="btn btn-outline-primary btn-sm"
+            >{address[:5]}...{address[-5:]}</button>
+        """
+    else:
+        html = "<span class='badge text-bg-secondary'>No address found</span>"
     return mark_safe(html)
 
 

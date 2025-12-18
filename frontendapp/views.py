@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.utils.decorators import method_decorator
-from django.db.models import Q
+from django.db.models import Q, F
 from django.db import transaction
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
@@ -20,7 +20,7 @@ from frontendapp.forms import (
     ListingForm,
     get_state_choices,
 )
-from api.utils import get_transaction_queryset, save_transaction
+from api.utils import get_transaction_queryset, save_transaction, StellarPayment
 
 User = get_user_model()
 
@@ -31,6 +31,22 @@ def about_view(request):
     about_count.save()
     return render(request, "about.html")
 
+def stellar_txn(request):
+    if request.method=='POST':
+        amt = int(request.POST['amount'])
+        user = request.user
+        if user.balance < amt:return JsonResponse({"data": 'low balance'})
+        SQ = StellarPayment(asset_code=user.exchange.code)
+        if request.POST['action']=='mint':
+            # mint token in stellar
+            SQ.payment(user.stellar_publickey,amt)
+            user.balance = F('balance') - amt
+            user.save(update_fields=['balance'])
+            # user.refresh_from_db()
+        elif request.POST['action']=='burn':
+            pass
+
+    return JsonResponse({"data": 'success'})
 
 def ajax_views(request, purpose):
     resp = ""

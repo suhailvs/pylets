@@ -11,6 +11,7 @@ urlpatterns = [
         views.UserDetail.as_view(),
         name="user_detail",
     ),
+    path("stellar_txn/", views.stellar_txn, name="stellar_txn"),    
     path('listing/<int:pk>/delete/', views.ListingDeleteView.as_view(), name='listing_delete'),
     path('listing/<int:pk>/preview/', views.ListingPreviewView.as_view(), name='listing_preview'),
     path("ajax/<str:purpose>/", views.ajax_views, name="ajax_views"), # see https://github.com/gamifications/shihas_bill

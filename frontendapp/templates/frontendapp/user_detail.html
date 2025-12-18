@@ -47,7 +47,13 @@
               <tr><td>Name</td><td>{{current_user.first_name}}</td></tr>
               <tr><td>Balance</td><td>{{current_user.balance}}</td></tr>
               <tr><td>Stellar Address</td><td>{% stellar_address current_user.stellar_publickey %}</td></tr>
-              
+              {% if current_user == request.user and current_user.stellar_publickey %}
+              <form method="post" action="{% url 'frontendapp:stellar_txn' %}">{% csrf_token %}
+                <tr><td><input type="number" name="amount" class="form-control" placeholder="Enter amount"></td><td>
+                <button type="submit" name="action" value="mint" class="btn btn-sm btn-success">Mint</button>
+                <button type="submit" name="action" value="burn" class="btn btn-sm btn-danger">Burn</button></td></tr>
+              </form>
+              {% endif %}
             </tbody>
           </table>
         </div>

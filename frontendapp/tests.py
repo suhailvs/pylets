@@ -134,6 +134,15 @@ class ListingTest(TestCase):
         self.url = reverse(
             "frontendapp:user_detail", kwargs={"exchange": "KKDE", "user": 1}
         )
+    
+    def test_user_details(self):
+        """
+        mint button must be only visible if stellar address available
+        """
+        response = self.client.get(self.url)
+        mint_btn='<button type="submit" name="action" value="mint" class="btn btn-sm btn-success">Mint</button>'
+        # self.assertInHTML
+        self.assertNotIn(mint_btn, response.content.decode())
 
     def test_offerings_list(self):
         response = self.client.get(self.url)

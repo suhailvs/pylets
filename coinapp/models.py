@@ -27,7 +27,7 @@ class User(AbstractUser):
     date_of_birth = models.DateField(help_text='Date of Birth in yyyy-mm-dd format.')
     balance = models.IntegerField(default=0)
     image = models.ImageField(upload_to='users/')
-    stellar_secret = models.CharField(max_length=50, blank=True)
+    stellar_secret = models.CharField(max_length=100, blank=True)
     
     @property
     def balance_from_txns(self):
@@ -36,7 +36,8 @@ class User(AbstractUser):
         return credited - debited
 
     @property
-    def stellar_publickey(self):        
+    def stellar_publickey(self):
+        if not self.stellar_secret:return ''
         return Keypair.from_secret(self.stellar_secret).public_key
 
 class Exchange(models.Model):
